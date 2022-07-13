@@ -1,0 +1,238 @@
+import { StyleSheet } from 'react-native';
+
+const fontFamily = 'Roboto';
+const fontWeightExtraBold = '800';
+const fontWeightSemiBold = '600';
+const fontWeigthRegular = '400';
+
+export const globalStyles = StyleSheet.create({
+ palette: {
+  neutral: {
+   100: '#0E0E10',
+   95: '#1A1A1C',
+   90: '#272728',
+   80: '#323234',
+   70: '#575758',
+   60: '#6E6E70',
+   50: '#868687',
+   40: '#9F9F9F',
+   30: '#B7B7B8',
+   20: '#CFCFCF',
+   10: '#E7E7E8',
+   5: '#F3F3F3',
+   0: '#FFFFFF',
+  },
+  primary: {
+   190: '#000D1A',
+   180: '#011A33',
+   160: '#013466',
+   140: '#024D99',
+   120: '#0267CC',
+   100: '#0381FF',
+   80: '#0267CC',
+   60: '#68B3FF',
+   40: '#9ACDFF',
+   20: '#CDE6FF',
+   10: '#E6F2FF',
+  },
+  secondary: {
+   190: '#1A1000',
+   180: '#332001',
+   160: '#664001',
+   140: '#996102',
+   120: '#CC8102',
+   100: '#FFA103',
+   80: '#FFB435',
+   60: '#FFC768',
+   40: '#FFD99A',
+   20: '#FFECCD',
+   10: '#FFF6E6',
+  },
+  accent: {
+   yellow: {
+    180: '#665F22',
+    140: '#998F34',
+    100: '#FFEE56',
+    40: '#FFF8BB',
+    10: '#FFFDEE',
+   },
+   green: {
+    160: '#19594D',
+    140: '#2EA690',
+    100: '#41E8CA',
+    40: '#D7FAF4',
+   },
+   purple: {
+    160: '#522959',
+    140: '#984BA5',
+    100: '#D86AEA',
+    40: '#EAADF4',
+    10: '#FBF0FD',
+   },
+   red: {
+    160: '#661515',
+    140: '#B22424',
+    100: '#DF0707',
+    40: '#F8A5A5',
+    10: '#FEEFEF',
+   },
+  },
+ },
+ opacities: {
+  95: 0.95,
+  90: 0.9,
+  80: 0.8,
+  60: 0.6,
+  40: 0.4,
+  20: 0.2,
+  10: 0.1,
+  5: 0.05,
+ },
+ typography: {
+  extraBold: {
+   1: {
+    fontFamily: fontFamily,
+    fontWeight: fontWeightExtraBold,
+    fontSize: 32,
+    lineHeight: 44,
+   },
+   2: {
+    fontFamily: fontFamily,
+    fontWeight: fontWeightExtraBold,
+    fontSize: 24,
+    lineHeight: 34,
+   },
+   3: {
+    fontFamily: fontFamily,
+    fontWeight: fontWeightExtraBold,
+    fontSize: 20,
+    lineHeight: 30,
+   },
+   4: {
+    fontFamily: fontFamily,
+    fontWeight: fontWeightExtraBold,
+    fontSize: 18,
+    lineHeight: 28,
+   },
+   5: {
+    fontFamily: fontFamily,
+    fontWeight: fontWeightExtraBold,
+    fontSize: 16,
+    lineHeight: 26,
+   },
+   6: {
+    fontFamily: fontFamily,
+    fontWeight: fontWeightExtraBold,
+    fontSize: 14,
+    lineHeight: 24,
+   },
+   7: {
+    fontFamily: fontFamily,
+    fontWeight: fontWeightExtraBold,
+    fontSize: 12,
+    lineHeight: 22,
+   },
+  },
+  semiBold: {
+   1: {
+    fontFamily: fontFamily,
+    fontWeight: fontWeightSemiBold,
+    fontSize: 32,
+    lineHeight: 44,
+   },
+   2: {
+    fontFamily: fontFamily,
+    fontWeight: fontWeightSemiBold,
+    fontSize: 24,
+    lineHeight: 34,
+   },
+   3: {
+    fontFamily: fontFamily,
+    fontWeight: fontWeightSemiBold,
+    fontSize: 20,
+    lineHeight: 30,
+   },
+   4: {
+    fontFamily: fontFamily,
+    fontWeight: fontWeightSemiBold,
+    fontSize: 18,
+    lineHeight: 28,
+   },
+   5: {
+    fontFamily: fontFamily,
+    fontWeight: fontWeightSemiBold,
+    fontSize: 16,
+    lineHeight: 26,
+   },
+   6: {
+    fontFamily: fontFamily,
+    fontWeight: fontWeightSemiBold,
+    fontSize: 14,
+    lineHeight: 24,
+   },
+   7: {
+    fontFamily: fontFamily,
+    fontWeight: fontWeightSemiBold,
+    fontSize: 12,
+    lineHeight: 22,
+   },
+  },
+  regular: {
+   1: {
+    fontFamily: fontFamily,
+    fontWeight: fontWeigthRegular,
+    fontSize: 32,
+    lineHeight: 44,
+   },
+   2: {
+    fontFamily: fontFamily,
+    fontWeight: fontWeigthRegular,
+    fontSize: 24,
+    lineHeight: 34,
+   },
+   3: {
+    fontFamily: fontFamily,
+    fontWeight: fontWeigthRegular,
+    fontSize: 20,
+    lineHeight: 30,
+   },
+   4: {
+    fontFamily: fontFamily,
+    fontWeight: fontWeigthRegular,
+    fontSize: 18,
+    lineHeight: 28,
+   },
+   5: {
+    fontFamily: fontFamily,
+    fontWeight: fontWeigthRegular,
+    fontSize: 16,
+    lineHeight: 26,
+   },
+   6: {
+    fontFamily: fontFamily,
+    fontWeight: fontWeigthRegular,
+    fontSize: 14,
+    lineHeight: 24,
+   },
+   7: {
+    fontFamily: fontFamily,
+    fontWeight: fontWeigthRegular,
+    fontSize: 12,
+    lineHeight: 22,
+   },
+  },
+ },
+ spacing: {
+  size: {
+   100: 4,
+   200: 8,
+   250: 12,
+   300: 16,
+   350: 24,
+   400: 32,
+   425: 40,
+   450: 48,
+   500: 64,
+  },
+ },
+});
