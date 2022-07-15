@@ -207,8 +207,7 @@ const styles = StyleSheet.create({
   },
  ],
  buttonContainer: {
-  flex: 1,
-  marginTop: 24,
+  flex: 10,
  },
  buttonCash: {
   alignItems: 'center',

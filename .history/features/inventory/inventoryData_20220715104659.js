@@ -32,7 +32,7 @@ export const products = [
   productPrice: 89000,
   productImage: require('../../assets/images/cortapelo.png'),
   productDescription: 'Clipper SE PRO Power 10',
-  productCategory: 'cuidado personal',
+  productCategory: 'cuproductIdado personal',
   productColor: 'Negro',
  },
  {
@@ -40,7 +40,7 @@ export const products = [
   productName: 'OSTER',
   productPrice: 505090,
   productImage: require('../../assets/images/freidoraDeAire.png'),
-  productDescription: 'Freidora de aire de 5.5 Litros CKSTAF55',
+  productDescription: 'Freidora Oster de aire de 5.5 Litros CKSTAF55',
   productCategory: 'electrodomesticos',
   productColor: 'Negro',
  },

@@ -27,7 +27,7 @@ export default function SaleSummary({ navigation }) {
  const step = 2;
 
  return (
-  <ScrollView style={styles.container}>
+  <View style={styles.container}>
    <View style={styles.stepContainer}>
     <StepIndicatorComponent step={step} />
    </View>
@@ -44,14 +44,14 @@ export default function SaleSummary({ navigation }) {
       <Text style={globalStyles.typography.extraBold[1]}>{value}</Text>
      )}
     />
-    <Text style={styles.totalLabel}>Valor total del producto</Text>
+    <Text>Valor total del producto</Text>
    </View>
-   <View style={styles.detailsContainer}>
+   <ScrollView>
     <View style={styles.orderInfoTitle}>
      <Text style={globalStyles.typography.regular[3]}>Método de pago</Text>
     </View>
-    <View style={styles.descriptionContainer}>
-     <Text style={styles.leftContainer}>12 cuotas</Text>
+    <View style={styles.installments}>
+     <Text>12 cuotas</Text>
      <NumberFormat
       value={productPrice / 12}
       displayType='text'
@@ -60,11 +60,11 @@ export default function SaleSummary({ navigation }) {
       decimalScale={2}
       fixedDecimalScale={true}
       prefix='$'
-      renderText={(value) => <Text style={styles.rightContainer}>{value}</Text>}
+      renderText={(value) => <Text>{value}</Text>}
      />
     </View>
-    <View style={styles.descriptionContainer}>
-     <Text style={styles.leftContainer}>Abono inicial</Text>
+    <View style={styles.installments}>
+     <Text>Abono inicial</Text>
      <NumberFormat
       value={0}
       displayType='text'
@@ -73,87 +73,90 @@ export default function SaleSummary({ navigation }) {
       decimalScale={2}
       fixedDecimalScale={true}
       prefix='$'
-      renderText={(value) => <Text style={styles.rightContainer}>{value}</Text>}
+      renderText={(value) => <Text>{value}</Text>}
      />
     </View>
-    <View style={styles.descriptionContainer}>
-     <Text style={styles.leftContainer}>Por pagar</Text>
+    <View style={styles.installments}>
+     <Text>Por pagar</Text>
      <NumberFormat
-      value={productPrice}
+      value={0}
       displayType='text'
       thousandSeparator='.'
       decimalSeparator=','
       decimalScale={2}
       fixedDecimalScale={true}
       prefix='$'
-      renderText={(value) => <Text style={styles.rightContainer}>{value}</Text>}
+      renderText={(value) => <Text>{value}</Text>}
      />
     </View>
+
     <View style={styles.orderInfoTitle}>
      <Text style={globalStyles.typography.regular[3]}>Datos del cliente</Text>
     </View>
-    <View style={styles.descriptionContainer}>
-     <Text style={styles.leftContainer}>Nombre</Text>
-     <Text style={styles.rightContainer}>Ricardo Lahura</Text>
+    <View style={styles.installments}>
+     <Text>Nombre</Text>
+     <Text>Ricardo Lahura</Text>
     </View>
-    <View style={styles.descriptionContainer}>
-     <Text style={styles.leftContainer}>Cedula</Text>
-     <Text style={styles.rightContainer}>1.123.456.789</Text>
+    <View style={styles.installments}>
+     <Text>Cedula</Text>
+     <Text>1.123.456.789</Text>
     </View>
-    <View style={styles.descriptionContainer}>
-     <Text style={styles.leftContainer}>Dirección</Text>
-     <Text style={styles.rightContainer}>Calle 93 # 19-75 de Bogota</Text>
+    <View style={styles.installments}>
+     <Text>Dirección</Text>
+     <Text>Calle 93 # 19-75 de Bogota</Text>
     </View>
-    <View style={styles.descriptionContainer}>
-     <Text style={styles.leftContainer}>Telefono</Text>
-     <Text style={styles.rightContainer}>1-123-456-789</Text>
+    <View style={styles.installments}>
+     <Text>Telefono</Text>
+     <Text>1-123-456-789</Text>
     </View>
-    <View style={styles.descriptionContainer}>
-     <Text style={styles.leftContainer}>Correo Electronico</Text>
-     <Text style={styles.rightContainer}>ricardo@gmail.com</Text>
+    <View style={styles.installments}>
+     <Text>Correo Electronico</Text>
+     <Text>ricardo@gmail.com</Text>
     </View>
     <View style={styles.orderInfoTitle}>
-     <Text style={globalStyles.typography.regular[3]}>Datos del producto</Text>
-    </View>
-    <View style={styles.descriptionContainer}>
-     <Text style={styles.leftContainer}>Marca</Text>
-     <Text style={styles.rightContainer}>OSTER</Text>
-    </View>
-    <View style={styles.descriptionContainer}>
-     <Text style={styles.leftContainer}>Descripcion</Text>
-     <Text style={styles.rightContainer}>
-      Freidora de aire de 5.5 Litros CKSTAF55
+     <Text style={globalStyles.typography.regular[3]}>
+      Descripcion del producto
      </Text>
     </View>
-    <View style={styles.descriptionContainer}>
-     <Text style={styles.leftContainer}>Color</Text>
-     <Text style={styles.rightContainer}>Negro</Text>
+    <View style={styles.installments}>
+     <Text>Nombre</Text>
+     <Text>Ricardo Lahura</Text>
     </View>
-   </View>
+    <View style={styles.installments}>
+     <Text>Nombre</Text>
+     <Text>Ricardo Lahura</Text>
+    </View>
+    <View style={styles.installments}>
+     <Text>Nombre</Text>
+     <Text>Ricardo Lahura</Text>
+    </View>
+    <View style={styles.installments}>
+     <Text>Nombre</Text>
+     <Text>Ricardo Lahura</Text>
+    </View>
+   </ScrollView>
+
    <View style={styles.buttonContainer}>
     <Pressable
      style={styles.buttonCash}
-     android_ripple={{ color: '#fff' }}
      onPress={() => navigation.navigate('Home')}>
      <Text style={styles.textButtonCash}>Aceptar y guardar</Text>
     </Pressable>
    </View>
-  </ScrollView>
+  </View>
  );
 }
 
 const styles = StyleSheet.create({
  container: {
   flex: 1,
+  backgroundColor: 'white',
   paddingHorizontal: 24,
-  backgroundColor: '#fff',
  },
  stepContainer: {
-  flex: 1,
   paddingVertical: 16,
  },
  productPriceContainer: {
-  flex: 1,
   alignItems: 'center',
  },
  productPrice: {
@@ -161,19 +164,15 @@ const styles = StyleSheet.create({
   fontWeight: 'bold',
   letterSpacing: 1,
  },
- detailsContainer: {
-  flex: 1,
+ image: {
+  width: 100,
+  height: 100,
  },
- totalLabel: {
-  color: globalStyles.palette.neutral[60],
- },
- leftContainer: {
-  color: globalStyles.palette.neutral[50],
-  flex: 1,
- },
- rightContainer: {
-  flex: 1,
-  textAlign: 'right',
+ imageContainer: {
+  paddingTop: 20,
+  justifyContent: 'center',
+  alignItems: 'center',
+  backgroundColor: 'white',
  },
  productDescription: {
   marginTop: 26,
@@ -190,11 +189,9 @@ const styles = StyleSheet.create({
   },
  ],
  orderInfoTitle: {
-  flex: 1,
   paddingVertical: 8,
  },
- descriptionContainer: {
-  flex: 1,
+ installments: {
   flexDirection: 'row',
   justifyContent: 'space-between',
   marginBottom: 8,
@@ -208,7 +205,7 @@ const styles = StyleSheet.create({
  ],
  buttonContainer: {
   flex: 1,
-  marginTop: 24,
+  justifyContent: 'flex-end',
  },
  buttonCash: {
   alignItems: 'center',

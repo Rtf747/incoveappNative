@@ -145,8 +145,8 @@ export default function SaleSummary({ navigation }) {
 const styles = StyleSheet.create({
  container: {
   flex: 1,
+  height: '100%',
   paddingHorizontal: 24,
-  backgroundColor: '#fff',
  },
  stepContainer: {
   flex: 1,
@@ -207,8 +207,7 @@ const styles = StyleSheet.create({
   },
  ],
  buttonContainer: {
-  flex: 1,
-  marginTop: 24,
+  flex: 10,
  },
  buttonCash: {
   alignItems: 'center',

@@ -144,17 +144,19 @@ export default function SaleSummary({ navigation }) {
 
 const styles = StyleSheet.create({
  container: {
-  flex: 1,
+  flex: 100,
+  backgroundColor: 'orange',
   paddingHorizontal: 24,
-  backgroundColor: '#fff',
  },
  stepContainer: {
   flex: 1,
   paddingVertical: 16,
+  backgroundColor: 'yellow',
  },
  productPriceContainer: {
   flex: 1,
   alignItems: 'center',
+  backgroundColor: 'blue',
  },
  productPrice: {
   fontSize: 24,
@@ -163,6 +165,7 @@ const styles = StyleSheet.create({
  },
  detailsContainer: {
   flex: 1,
+  backgroundColor: 'red',
  },
  totalLabel: {
   color: globalStyles.palette.neutral[60],
@@ -207,8 +210,8 @@ const styles = StyleSheet.create({
   },
  ],
  buttonContainer: {
-  flex: 1,
-  marginTop: 24,
+  flex: 10,
+  backgroundColor: 'green',
  },
  buttonCash: {
   alignItems: 'center',

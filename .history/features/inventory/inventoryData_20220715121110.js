@@ -32,7 +32,7 @@ export const products = [
   productPrice: 89000,
   productImage: require('../../assets/images/cortapelo.png'),
   productDescription: 'Clipper SE PRO Power 10',
-  productCategory: 'cuidado personal',
+  productCategory: 'cuproductIdado personal',
   productColor: 'Negro',
  },
  {

@@ -145,8 +145,8 @@ export default function SaleSummary({ navigation }) {
 const styles = StyleSheet.create({
  container: {
   flex: 1,
+  backgroundColor: 'white',
   paddingHorizontal: 24,
-  backgroundColor: '#fff',
  },
  stepContainer: {
   flex: 1,
@@ -155,6 +155,7 @@ const styles = StyleSheet.create({
  productPriceContainer: {
   flex: 1,
   alignItems: 'center',
+  backgroundColor: 'blue',
  },
  productPrice: {
   fontSize: 24,
@@ -163,6 +164,7 @@ const styles = StyleSheet.create({
  },
  detailsContainer: {
   flex: 1,
+  backgroundColor: 'red',
  },
  totalLabel: {
   color: globalStyles.palette.neutral[60],
@@ -208,7 +210,8 @@ const styles = StyleSheet.create({
  ],
  buttonContainer: {
   flex: 1,
-  marginTop: 24,
+  justifyContent: 'flex-end',
+  backgroundColor: 'green',
  },
  buttonCash: {
   alignItems: 'center',
