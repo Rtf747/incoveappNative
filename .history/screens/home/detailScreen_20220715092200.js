@@ -1,30 +1,22 @@
-import { Text, View, Image, StyleSheet, Pressable } from 'react-native';
-import StepIndicatorComponent from '../../components/homeScreen/stepIndicatorComponent/stepIndicatorComponent';
-import { useSelector } from 'react-redux';
+import { Image, Pressable, StyleSheet, Text, View } from 'react-native';
 import { globalStyles } from '../../styles/global';
 
-export default function SaleSummary({ navigation }) {
- const products = useSelector((state) => state.inventory);
-
- const product = products.find((product) => product.productId === 5);
+export default function DetailScreen({ route }) {
  const {
-  productId,
-  productName,
-  productPrice,
-  productImage,
-  productDescription,
+  id,
+  clientName,
+  cedula,
+  address,
+  date,
+  time,
+  amount,
+  image,
   productColor,
- } = product;
-
- const step = 2;
-
+ } = route.params;
  return (
   <View style={styles.container}>
-   <View style={styles.stepContainer}>
-    <StepIndicatorComponent step={step} />
-   </View>
    <View style={styles.imageContainer}>
-    <Image style={styles.image} source={productImage} />
+    <Image style={styles.image} source={image} />
    </View>
    <View style={styles.productDescription}>
     <Text
@@ -34,17 +26,17 @@ export default function SaleSummary({ navigation }) {
        textAlign: 'center',
       },
      ]}>
-     {productDescription}
+     Licuadora 1.5L 550W Vaso de Vidrio
     </Text>
    </View>
    <View style={styles.productDescriptionBottom}>
     <Text style={styles.productDescriptionBottomText}>
-     {productName} | {productColor} | ID:{productId}
+     {clientName} | {productColor} | ID:{id}
     </Text>
    </View>
    <View style={styles.orderInfoTitle}>
     <Text style={globalStyles.typography.regular[3]}>
-     Información del cliente
+     Información de la orden
     </Text>
    </View>
    <View>
@@ -70,15 +62,22 @@ export default function SaleSummary({ navigation }) {
  );
 }
 
+/* introduce esto: 
+
+  <Text>{id}</Text>
+   <Text>{cedula}</Text>
+   <Text>{address}</Text>
+   <Text>{date}</Text>
+   <Text>{time}</Text>
+   <Text>{amount}</Text>*/
+
 const styles = StyleSheet.create({
  container: {
   flex: 1,
   backgroundColor: 'white',
   paddingHorizontal: 24,
  },
- stepContainer: {
-  paddingVertical: 16,
- },
+
  image: {
   width: 100,
   height: 100,
@@ -104,7 +103,7 @@ const styles = StyleSheet.create({
   },
  ],
  orderInfoTitle: {
-  paddingVertical: 8,
+  paddingVertical: 16,
  },
  subTitle: [
   globalStyles.typography.regular[6],

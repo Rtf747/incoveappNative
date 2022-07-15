@@ -44,7 +44,7 @@ export default function SaleSummary({ navigation }) {
    </View>
    <View style={styles.orderInfoTitle}>
     <Text style={globalStyles.typography.regular[3]}>
-     Información del cliente
+     Información de la orden
     </Text>
    </View>
    <View>
@@ -104,7 +104,7 @@ const styles = StyleSheet.create({
   },
  ],
  orderInfoTitle: {
-  paddingVertical: 8,
+  paddingVertical: 16,
  },
  subTitle: [
   globalStyles.typography.regular[6],

@@ -104,7 +104,7 @@ const styles = StyleSheet.create({
   },
  ],
  orderInfoTitle: {
-  paddingVertical: 8,
+  paddingVertical: 12,
  },
  subTitle: [
   globalStyles.typography.regular[6],

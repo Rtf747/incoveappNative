@@ -15,6 +15,7 @@ export default function CardComponent({
  description,
  amount,
  navigation,
+ productColor,
 }) {
  return (
   <TouchableWithoutFeedback

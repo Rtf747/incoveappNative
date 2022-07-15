@@ -6,15 +6,8 @@ import { globalStyles } from '../../styles/global';
 export default function SaleSummary({ navigation }) {
  const products = useSelector((state) => state.inventory);
 
- const product = products.find((product) => product.productId === 5);
- const {
-  productId,
-  productName,
-  productPrice,
-  productImage,
-  productDescription,
-  productColor,
- } = product;
+ const product = products.find((product) => product.id === 5);
+ const { id, name, price, image, description, color } = product;
 
  const step = 2;
 
@@ -24,7 +17,7 @@ export default function SaleSummary({ navigation }) {
     <StepIndicatorComponent step={step} />
    </View>
    <View style={styles.imageContainer}>
-    <Image style={styles.image} source={productImage} />
+    <Image style={styles.image} source={image} />
    </View>
    <View style={styles.productDescription}>
     <Text
@@ -34,17 +27,17 @@ export default function SaleSummary({ navigation }) {
        textAlign: 'center',
       },
      ]}>
-     {productDescription}
+     Licuadora 1.5L 550W Vaso de Vidrio
     </Text>
    </View>
    <View style={styles.productDescriptionBottom}>
     <Text style={styles.productDescriptionBottomText}>
-     {productName} | {productColor} | ID:{productId}
+     {name} | {color} | ID:{id}
     </Text>
    </View>
    <View style={styles.orderInfoTitle}>
     <Text style={globalStyles.typography.regular[3]}>
-     Información del cliente
+     Información de la orden
     </Text>
    </View>
    <View>
@@ -104,7 +97,7 @@ const styles = StyleSheet.create({
   },
  ],
  orderInfoTitle: {
-  paddingVertical: 8,
+  paddingVertical: 16,
  },
  subTitle: [
   globalStyles.typography.regular[6],

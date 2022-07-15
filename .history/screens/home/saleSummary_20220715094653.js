@@ -6,7 +6,7 @@ import { globalStyles } from '../../styles/global';
 export default function SaleSummary({ navigation }) {
  const products = useSelector((state) => state.inventory);
 
- const product = products.find((product) => product.productId === 5);
+ const product = products.find((product) => product.id === 5);
  const {
   productId,
   productName,
@@ -44,7 +44,7 @@ export default function SaleSummary({ navigation }) {
    </View>
    <View style={styles.orderInfoTitle}>
     <Text style={globalStyles.typography.regular[3]}>
-     Información del cliente
+     Información de la orden
     </Text>
    </View>
    <View>
@@ -104,7 +104,7 @@ const styles = StyleSheet.create({
   },
  ],
  orderInfoTitle: {
-  paddingVertical: 8,
+  paddingVertical: 16,
  },
  subTitle: [
   globalStyles.typography.regular[6],

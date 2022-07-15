@@ -33,7 +33,6 @@ export default function HomeScreen({ navigation }) {
        clientName={item.clientName}
        description={item.address}
        amount={item.amount}
-       productColor={item.productColor}
        navigation={navigation}
       />
      )}

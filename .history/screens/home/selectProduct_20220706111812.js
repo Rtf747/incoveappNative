@@ -22,10 +22,10 @@ export default function SelectProduct({ route, navigation }) {
      renderItem={({ item }) => (
       <CardComponent
        item={item}
-       image={item.productImage}
-       name={item.productName}
-       description={item.productDescription}
-       amount={item.productPrice}
+       image={item.image}
+       name={item.name}
+       description={item.description}
+       amount={item.price}
        navigation={navigation}
       />
      )}

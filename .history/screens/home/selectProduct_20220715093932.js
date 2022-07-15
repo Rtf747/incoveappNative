@@ -25,7 +25,7 @@ export default function SelectProduct({ route, navigation }) {
        image={item.productImage}
        name={item.productName}
        description={item.productDescription}
-       amount={item.productPrice}
+       amount={item.price}
        navigation={navigation}
       />
      )}

@@ -9,7 +9,7 @@ export default function DetailProductScreen({ route, navigation }) {
   productPrice,
   productImage,
   productDescription,
-  productColor,
+  category,
  } = route.params;
 
  return (
@@ -24,7 +24,7 @@ export default function DetailProductScreen({ route, navigation }) {
     <View style={styles.textContainer}>
      <Text style={globalStyles.typography.regular[4]}>{productName} - </Text>
      <Text style={globalStyles.typography.regular[4]}>
-      {productDescription} - {productColor}
+      {productDescription}
      </Text>
     </View>
     <View style={styles.brandImageContainer}>

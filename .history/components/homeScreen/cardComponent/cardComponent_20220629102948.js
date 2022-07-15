@@ -11,7 +11,7 @@ import { globalStyles } from '../../../styles/global';
 export default function CardComponent({
  item,
  image,
- clientName,
+ name,
  description,
  amount,
  navigation,
@@ -25,7 +25,7 @@ export default function CardComponent({
     </View>
     <View style={styles.centerContainer}>
      <Text style={[styles.itemName, globalStyles.typography.extraBold[6]]}>
-      {clientName}
+      {name}
      </Text>
      <Text style={[styles.itemDescription, globalStyles.typography.regular[7]]}>
       {description}

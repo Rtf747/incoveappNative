@@ -10,7 +10,7 @@ export const products = [
  },
  {
   productId: 2,
-  productName: 'KITCHENA',
+  productName: 'KITCHENAproductId',
   productPrice: 1699000,
   productImage: require('../../assets/images/batidora.png'),
   productDescription: 'batidora Artisan Metallic Chrome',

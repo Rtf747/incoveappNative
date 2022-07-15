@@ -30,10 +30,9 @@ export default function HomeScreen({ navigation }) {
       <CardComponent
        item={item}
        image={item.image}
-       clientName={item.clientName}
+       name={item.clientName}
        description={item.address}
        amount={item.amount}
-       productColor={item.productColor}
        navigation={navigation}
       />
      )}

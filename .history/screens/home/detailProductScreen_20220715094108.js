@@ -3,19 +3,12 @@ import { globalStyles } from '../../styles/global';
 import NumberFormat from 'react-number-format';
 
 export default function DetailProductScreen({ route, navigation }) {
- const {
-  id,
-  productName,
-  productPrice,
-  productImage,
-  productDescription,
-  productColor,
- } = route.params;
+ const { id, productName, price, image, description, category } = route.params;
 
  return (
   <View style={styles.container}>
    <View style={styles.imageContainer}>
-    <Image style={styles.image} source={productImage} />
+    <Image style={styles.image} source={image} />
    </View>
    <View style={styles.dividerContainer}>
     <View style={styles.divider} />
@@ -23,16 +16,14 @@ export default function DetailProductScreen({ route, navigation }) {
    <View style={styles.bottomContainer}>
     <View style={styles.textContainer}>
      <Text style={globalStyles.typography.regular[4]}>{productName} - </Text>
-     <Text style={globalStyles.typography.regular[4]}>
-      {productDescription} - {productColor}
-     </Text>
+     <Text style={globalStyles.typography.regular[4]}>{description}</Text>
     </View>
     <View style={styles.brandImageContainer}>
-     <Image style={styles.brandImage} source={productImage} />
+     <Image style={styles.brandImage} source={image} />
     </View>
    </View>
    <NumberFormat
-    value={productPrice}
+    value={price}
     displayType='text'
     thousandSeparator='.'
     decimalSeparator=','
