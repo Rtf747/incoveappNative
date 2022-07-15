@@ -10,14 +10,8 @@ export default function PayMethod({ navigation }) {
  const [total, setTotal] = useState(2255000.99);
  const [cuota, setCuota] = useState('12');
 
- const min = 1;
- const max = 36;
-
  const handleChange = (value) => {
-  const newValue = Math.max(min, Math.min(max, Number(value)));
-  const newValueToString = newValue.toString();
-
-  setCuota(newValueToString);
+  setCuota(value);
  };
 
  const step = 1;
@@ -60,7 +54,7 @@ export default function PayMethod({ navigation }) {
        color={globalStyles.palette.primary[100]}
        value='12'
        status={cuota === '12' ? 'checked' : 'unchecked'}
-       onPress={() => setCuota('12')}
+       onPress={() => setChecked('12')}
       />
      </View>
      <View style={styles.radioButtonGroup}>
@@ -78,7 +72,7 @@ export default function PayMethod({ navigation }) {
        color={globalStyles.palette.primary[100]}
        value='24'
        status={cuota === '24' ? 'checked' : 'unchecked'}
-       onPress={() => setCuota('24')}
+       onPress={() => setChecked('24')}
       />
      </View>
      <View style={styles.radioButtonGroup}>
@@ -96,7 +90,7 @@ export default function PayMethod({ navigation }) {
        color={globalStyles.palette.primary[100]}
        value='36'
        status={cuota === '36' ? 'checked' : 'unchecked'}
-       onPress={() => setCuota('36')}
+       onPress={() => setChecked('36')}
       />
      </View>
     </View>

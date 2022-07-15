@@ -1,4 +1,4 @@
-import { Text, View, StyleSheet, Pressable, TextInput } from 'react-native';
+import { Text, View, Image, StyleSheet, Pressable } from 'react-native';
 import StepIndicatorComponent from '../../components/homeScreen/stepIndicatorComponent/stepIndicatorComponent';
 import { globalStyles } from '../../styles/global';
 import NumberFormat from 'react-number-format';
@@ -6,19 +6,8 @@ import { RadioButton } from 'react-native-paper';
 import { useState } from 'react';
 
 export default function PayMethod({ navigation }) {
- const [checked, setChecked] = useState('12');
+ const [checked, setChecked] = useState('first');
  const [total, setTotal] = useState(2255000.99);
- const [cuota, setCuota] = useState('12');
-
- const min = 1;
- const max = 36;
-
- const handleChange = (value) => {
-  const newValue = Math.max(min, Math.min(max, Number(value)));
-  const newValueToString = newValue.toString();
-
-  setCuota(newValueToString);
- };
 
  const step = 1;
  return (
@@ -27,29 +16,47 @@ export default function PayMethod({ navigation }) {
     <View style={styles.stepContainer}>
      <StepIndicatorComponent step={step} />
     </View>
-    <View
-     style={{
-      alignItems: 'center',
-     }}>
-     <Text>Numero de cuotas</Text>
-    </View>
-    <View style={styles.inputTextContainer}>
-     <TextInput
-      autoFocus={true}
-      keyboardType='numeric'
-      onChangeText={(value) => handleChange(value)}
-      style={{
-       fontSize: 60,
-      }}
-      value={cuota}
-     />
+    <View style={styles.installmentContainer}>
+     <Text>
+      {checked === 'first' ? (
+       <NumberFormat
+        value={total / 12}
+        displayType='text'
+        thousandSeparator='.'
+        decimalSeparator=','
+        decimalScale={2}
+        prefix='$'
+        renderText={(value) => <Text style={styles.installment}>{value}</Text>}
+       />
+      ) : checked === 'second' ? (
+       <NumberFormat
+        value={total / 24}
+        displayType='text'
+        thousandSeparator='.'
+        decimalSeparator=','
+        decimalScale={2}
+        prefix='$'
+        renderText={(value) => <Text style={styles.installment}>{value}</Text>}
+       />
+      ) : (
+       <NumberFormat
+        value={total / 36}
+        displayType='text'
+        thousandSeparator='.'
+        decimalSeparator=','
+        decimalScale={2}
+        prefix='$'
+        renderText={(value) => <Text style={styles.installment}>{value}</Text>}
+       />
+      )}
+     </Text>
     </View>
     <View style={styles.cuotasContainer}>
      <View style={styles.radioButtonGroup}>
       <Text
        style={{
         color:
-         cuota === '12'
+         checked === 'first'
           ? globalStyles.palette.primary[100]
           : globalStyles.palette.neutral[50],
        }}>
@@ -58,16 +65,16 @@ export default function PayMethod({ navigation }) {
       <RadioButton
        uncheckedColor={globalStyles.palette.neutral[50]}
        color={globalStyles.palette.primary[100]}
-       value='12'
-       status={cuota === '12' ? 'checked' : 'unchecked'}
-       onPress={() => setCuota('12')}
+       value='first'
+       status={checked === 'first' ? 'checked' : 'unchecked'}
+       onPress={() => setChecked('first')}
       />
      </View>
      <View style={styles.radioButtonGroup}>
       <Text
        style={{
         color:
-         cuota === '24'
+         checked === 'second'
           ? globalStyles.palette.primary[100]
           : globalStyles.palette.neutral[50],
        }}>
@@ -76,16 +83,16 @@ export default function PayMethod({ navigation }) {
       <RadioButton
        uncheckedColor={globalStyles.palette.neutral[50]}
        color={globalStyles.palette.primary[100]}
-       value='24'
-       status={cuota === '24' ? 'checked' : 'unchecked'}
-       onPress={() => setCuota('24')}
+       value='second'
+       status={checked === 'second' ? 'checked' : 'unchecked'}
+       onPress={() => setChecked('second')}
       />
      </View>
      <View style={styles.radioButtonGroup}>
       <Text
        style={{
         color:
-         cuota === '36'
+         checked === 'third'
           ? globalStyles.palette.primary[100]
           : globalStyles.palette.neutral[50],
        }}>
@@ -94,42 +101,16 @@ export default function PayMethod({ navigation }) {
       <RadioButton
        uncheckedColor={globalStyles.palette.neutral[50]}
        color={globalStyles.palette.primary[100]}
-       value='36'
-       status={cuota === '36' ? 'checked' : 'unchecked'}
-       onPress={() => setCuota('36')}
+       value='third'
+       status={checked === 'third' ? 'checked' : 'unchecked'}
+       onPress={() => setChecked('third')}
       />
      </View>
     </View>
-    <View style={styles.installmentContainer}>
-     <Text>
-      <NumberFormat
-       value={total / parseInt(cuota)}
-       displayType='text'
-       thousandSeparator='.'
-       decimalSeparator=','
-       decimalScale={2}
-       prefix='$'
-       renderText={(value) => <Text style={styles.installment}>{value}</Text>}
-      />
-     </Text>
-     <Text>Monto a pagar por cuota</Text>
-    </View>
-    {/* <View style={styles.totalContainer}>
-     <Text style={globalStyles.typography.regular[2]}>Total</Text>
-     <NumberFormat
-      value={total}
-      displayType='text'
-      thousandSeparator='.'
-      decimalSeparator=','
-      decimalScale={2}
-      prefix='$'
-      renderText={(value) => (
-       <Text style={globalStyles.typography.semiBold[2]}>{value}</Text>
-      )}
-     />
-    </View> */}
+
     <View style={styles.buttonContainer}>
      <Pressable
+      disabled
       android_ripple={{ color: '#fff' }}
       style={styles.buttonCash}
       onPress={() => navigation.navigate('saleSummary')}>
@@ -142,6 +123,20 @@ export default function PayMethod({ navigation }) {
       <Text style={styles.textButtonCard}>Tarjeta</Text>
      </Pressable> */}
     </View>
+   </View>
+   <View style={styles.totalContainer}>
+    <Text style={globalStyles.typography.regular[4]}>Total</Text>
+    <NumberFormat
+     value={total}
+     displayType='text'
+     thousandSeparator='.'
+     decimalSeparator=','
+     decimalScale={2}
+     prefix='$'
+     renderText={(value) => (
+      <Text style={globalStyles.typography.semiBold[4]}>{value}</Text>
+     )}
+    />
    </View>
   </>
  );
@@ -156,52 +151,27 @@ const styles = StyleSheet.create({
  stepContainer: {
   paddingVertical: 16,
  },
-
- inputTextContainer: {
-  flex: 0.5,
-  alignItems: 'center',
-  justifyContent: 'center',
-  //backgroundColor: 'peru',
- },
-
  cuotasContainer: {
-  flex: 0.5,
+  marginTop: 26,
+  flex: 1,
   flexDirection: 'row',
   justifyContent: 'space-around',
   alignItems: 'center',
-  //backgroundColor: 'papayawhip',
  },
  installmentContainer: {
-  flex: 0.5,
+  flex: 1,
   alignItems: 'center',
   justifyContent: 'center',
-  //backgroundColor: 'pink',
  },
- totalContainer: {
-  flex: 0.5,
-  flexDirection: 'row',
-  alignItems: 'center',
-  justifyContent: 'space-between',
-  borderTopWidth: 1,
-  borderColor: globalStyles.palette.neutral[10],
-  paddingHorizontal: 28,
-  backgroundColor: 'paleturquoise',
- },
-
- installment: [
-  {
-   fontSize: 50,
-  },
-  //   globalStyles.typography.semiBold[1]
- ],
+ installment: globalStyles.typography.semiBold[1],
  radioButtonGroup: {
   alignItems: 'center',
   flexDirection: 'column-reverse',
  },
-
  buttonContainer: {
-  flex: 0.5,
+  flex: 1,
   justifyContent: 'flex-end',
+  marginBottom: 16,
  },
  buttonCash: {
   alignItems: 'center',
@@ -210,7 +180,18 @@ const styles = StyleSheet.create({
   paddingHorizontal: 32,
   borderRadius: 12,
   backgroundColor: globalStyles.palette.primary[100],
-  marginBottom: 8,
+  marginVertical: 8,
+ },
+ buttonCard: {
+  alignItems: 'center',
+  justifyContent: 'center',
+  paddingVertical: 12,
+  paddingHorizontal: 32,
+  borderRadius: 12,
+  backgroundColor: 'white',
+  marginVertical: 8,
+  borderWidth: 1,
+  borderColor: globalStyles.palette.neutral[10],
  },
  textButtonCash: {
   paddingVertical: 5,
@@ -220,24 +201,22 @@ const styles = StyleSheet.create({
   letterSpacing: 0.25,
   color: 'white',
  },
-
- /*  textButtonCard: {
+ textButtonCard: {
   paddingVertical: 5,
   fontSize: 16,
   lineHeight: 21,
   fontWeight: 'bold',
   letterSpacing: 0.25,
   color: globalStyles.palette.neutral[80],
- }, */
- /*  buttonCard: {
+ },
+ totalContainer: {
+  flex: 0.15,
+  flexDirection: 'row',
   alignItems: 'center',
-  justifyContent: 'center',
-  paddingVertical: 12,
-  paddingHorizontal: 32,
-  borderRadius: 12,
-
-  marginVertical: 8,
-  borderWidth: 1,
+  justifyContent: 'space-between',
+  borderTopWidth: 1,
   borderColor: globalStyles.palette.neutral[10],
- }, */
+  backgroundColor: 'white',
+  paddingHorizontal: 28,
+ },
 });

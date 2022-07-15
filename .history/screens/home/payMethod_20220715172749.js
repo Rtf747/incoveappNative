@@ -10,7 +10,7 @@ export default function PayMethod({ navigation }) {
  const [total, setTotal] = useState(2255000.99);
  const [cuota, setCuota] = useState('12');
 
- const min = 1;
+ const min = 0;
  const max = 36;
 
  const handleChange = (value) => {

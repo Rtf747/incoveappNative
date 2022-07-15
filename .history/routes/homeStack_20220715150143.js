@@ -128,6 +128,18 @@ export default function HomeStack({ navigation }) {
      headerTitleStyle: globalStyles.typography.semiBold[3],
      headerTitleAlign: 'center',
      headerShadowVisible: false,
+     headerRight: () => (
+      <TouchableWithoutFeedback>
+       <MaterialIcons
+        name='edit'
+        size={24}
+        color='black'
+        style={{
+         marginRight: 10,
+        }}
+       />
+      </TouchableWithoutFeedback>
+     ),
     }}
    />
    <Stack.Screen

@@ -8,16 +8,13 @@ import { useState } from 'react';
 export default function PayMethod({ navigation }) {
  const [checked, setChecked] = useState('12');
  const [total, setTotal] = useState(2255000.99);
- const [cuota, setCuota] = useState('12');
-
- const min = 1;
- const max = 36;
+ const [cuota, setCuota] = useState(12);
 
  const handleChange = (value) => {
-  const newValue = Math.max(min, Math.min(max, Number(value)));
-  const newValueToString = newValue.toString();
-
-  setCuota(newValueToString);
+  setCuota({
+   ...cuota,
+   cuota: value,
+  });
  };
 
  const step = 1;
@@ -41,7 +38,6 @@ export default function PayMethod({ navigation }) {
       style={{
        fontSize: 60,
       }}
-      value={cuota}
      />
     </View>
     <View style={styles.cuotasContainer}>
@@ -49,7 +45,7 @@ export default function PayMethod({ navigation }) {
       <Text
        style={{
         color:
-         cuota === '12'
+         checked === '12'
           ? globalStyles.palette.primary[100]
           : globalStyles.palette.neutral[50],
        }}>
@@ -59,15 +55,15 @@ export default function PayMethod({ navigation }) {
        uncheckedColor={globalStyles.palette.neutral[50]}
        color={globalStyles.palette.primary[100]}
        value='12'
-       status={cuota === '12' ? 'checked' : 'unchecked'}
-       onPress={() => setCuota('12')}
+       status={checked === '12' ? 'checked' : 'unchecked'}
+       onPress={() => setChecked('12')}
       />
      </View>
      <View style={styles.radioButtonGroup}>
       <Text
        style={{
         color:
-         cuota === '24'
+         checked === '24'
           ? globalStyles.palette.primary[100]
           : globalStyles.palette.neutral[50],
        }}>
@@ -77,15 +73,15 @@ export default function PayMethod({ navigation }) {
        uncheckedColor={globalStyles.palette.neutral[50]}
        color={globalStyles.palette.primary[100]}
        value='24'
-       status={cuota === '24' ? 'checked' : 'unchecked'}
-       onPress={() => setCuota('24')}
+       status={checked === '24' ? 'checked' : 'unchecked'}
+       onPress={() => setChecked('24')}
       />
      </View>
      <View style={styles.radioButtonGroup}>
       <Text
        style={{
         color:
-         cuota === '36'
+         checked === '36'
           ? globalStyles.palette.primary[100]
           : globalStyles.palette.neutral[50],
        }}>
@@ -95,22 +91,44 @@ export default function PayMethod({ navigation }) {
        uncheckedColor={globalStyles.palette.neutral[50]}
        color={globalStyles.palette.primary[100]}
        value='36'
-       status={cuota === '36' ? 'checked' : 'unchecked'}
-       onPress={() => setCuota('36')}
+       status={checked === '36' ? 'checked' : 'unchecked'}
+       onPress={() => setChecked('36')}
       />
      </View>
     </View>
     <View style={styles.installmentContainer}>
      <Text>
-      <NumberFormat
-       value={total / parseInt(cuota)}
-       displayType='text'
-       thousandSeparator='.'
-       decimalSeparator=','
-       decimalScale={2}
-       prefix='$'
-       renderText={(value) => <Text style={styles.installment}>{value}</Text>}
-      />
+      {checked === '12' ? (
+       <NumberFormat
+        value={total / 12}
+        displayType='text'
+        thousandSeparator='.'
+        decimalSeparator=','
+        decimalScale={2}
+        prefix='$'
+        renderText={(value) => <Text style={styles.installment}>{value}</Text>}
+       />
+      ) : checked === '24' ? (
+       <NumberFormat
+        value={total / 24}
+        displayType='text'
+        thousandSeparator='.'
+        decimalSeparator=','
+        decimalScale={2}
+        prefix='$'
+        renderText={(value) => <Text style={styles.installment}>{value}</Text>}
+       />
+      ) : (
+       <NumberFormat
+        value={total / 36}
+        displayType='text'
+        thousandSeparator='.'
+        decimalSeparator=','
+        decimalScale={2}
+        prefix='$'
+        renderText={(value) => <Text style={styles.installment}>{value}</Text>}
+       />
+      )}
      </Text>
      <Text>Monto a pagar por cuota</Text>
     </View>

@@ -14,10 +14,7 @@ export default function PayMethod({ navigation }) {
  const max = 36;
 
  const handleChange = (value) => {
-  const newValue = Math.max(min, Math.min(max, Number(value)));
-  const newValueToString = newValue.toString();
-
-  setCuota(newValueToString);
+  setCuota(toString(newValue));
  };
 
  const step = 1;
