@@ -25,6 +25,8 @@ export default function SelectProduct({ route, navigation }) {
  const subCathegoryName = descripcion;
  const subCathegoryId = route.params.id;
 
+ //console.log(route.params.id);
+
  const categorizedProducts = useSelector(
   (state) => state.inventory.categorizedProducts
  );
@@ -42,7 +44,7 @@ export default function SelectProduct({ route, navigation }) {
   );
 
  useEffect(() => {
-  dispatch(filterProducts(subCathegoryId));
+  dispatch(filterProducts(cathegoryId));
  }, []);
 
  const onSubmit = () => {

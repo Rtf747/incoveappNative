@@ -63,13 +63,25 @@ export default function HomeStack({ navigation }) {
     }}
    />
    <Stack.Screen
-    name='SubCathegory'
-    component={SubCathegory}
+    name='subCathegory'
+    component={HomeScreen}
     options={{
-     headerTitle: 'Subcategoria',
+     headerTitle: 'Inicio',
      headerTitleStyle: globalStyles.typography.semiBold[3],
      headerTitleAlign: 'center',
      headerShadowVisible: false,
+     headerLeft: () => (
+      <TouchableWithoutFeedback onPress={() => openDrawer()}>
+       <MaterialIcons
+        name='menu'
+        size={24}
+        color='black'
+        style={{
+         marginLeft: 10,
+        }}
+       />
+      </TouchableWithoutFeedback>
+     ),
      headerRight: () => (
       <TouchableWithoutFeedback>
        <MaterialIcons

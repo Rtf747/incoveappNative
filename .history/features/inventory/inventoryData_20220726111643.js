@@ -5,7 +5,7 @@ export const products = [
   productPrice: 839000,
   productImage: require('../../assets/images/aspiradora.png'),
   productDescription: 'Aspiradora 1200 W 440 W Succión',
-  productSubCategory: 20,
+  productCategory: 'limpieza y aspirado',
   productColor: 'Negro',
  },
  {
@@ -14,7 +14,7 @@ export const products = [
   productPrice: 1699000,
   productImage: require('../../assets/images/batidora.png'),
   productDescription: 'batidora Artisan Metallic Chrome',
-  productSubCategory: 17,
+  productCategory: 'Electrodomésticos',
   productColor: 'Negro',
  },
  {
@@ -23,7 +23,7 @@ export const products = [
   productPrice: 118000,
   productImage: require('../../assets/images/cafetera.png'),
   productDescription: 'Cafetera 4 tazas BVSTDCDR5B',
-  productSubCategory: 21,
+  productCategory: 'Electrodomésticos',
   productColor: 'Negro',
  },
  {
@@ -32,7 +32,7 @@ export const products = [
   productPrice: 89000,
   productImage: require('../../assets/images/cortapelo.png'),
   productDescription: 'Clipper SE PRO Power 10',
-  productSubCategory: 21,
+  productCategory: 'Cuidado personal',
   productColor: 'Negro',
  },
  {
@@ -41,7 +41,7 @@ export const products = [
   productPrice: 505090,
   productImage: require('../../assets/images/freidoraDeAire.png'),
   productDescription: 'Freidora de aire de 5.5 Litros CKSTAF55',
-  productSubCategory: 17,
+  productCategory: 'Electrodomésticos',
   productColor: 'Negro',
  },
  {
@@ -50,7 +50,7 @@ export const products = [
   productPrice: 590000,
   productImage: require('../../assets/images/OriginalLicuadora.png'),
   productDescription: 'Licuadora Kaliman 2 Vel + Pulso BLSTKAG Roja',
-  productSubCategory: 17,
+  productCategory: 'Electrodomésticos',
   productColor: 'Negro',
  },
  {
@@ -59,7 +59,7 @@ export const products = [
   productPrice: 249000,
   productImage: require('../../assets/images/Multiolla.png'),
   productDescription: 'Multiolla rápproductIda electrica de 5,7 lts Oster®',
-  productSubCategory: 17,
+  productCategory: 'Electrodomésticos',
   productColor: 'Negro',
  },
  {
@@ -68,7 +68,7 @@ export const products = [
   productPrice: 199000,
   productImage: require('../../assets/images/ventilador.png'),
   productDescription: 'Circulador de aire 21"',
-  productSubCategory: 19,
+  productCategory: 'Hogar',
   productColor: 'Negro',
  },
  {
@@ -77,7 +77,7 @@ export const products = [
   productPrice: 89000,
   productImage: require('../../assets/images/plancha.png'),
   productDescription: 'Plancha a Vapor 2000 W WIRON-1001CER',
-  productSubCategory: 18,
+  productCategory: 'Hogar',
   productColor: 'Negro',
  },
  {
@@ -86,7 +86,7 @@ export const products = [
   productPrice: 189000,
   productImage: require('../../assets/images/secadora.png'),
   productDescription: 'Secadora SE Ultra',
-  productSubCategory: 18,
+  productCategory: 'Hogar',
   productColor: 'Negro',
  },
  {
@@ -95,7 +95,7 @@ export const products = [
   productPrice: 139000,
   productImage: require('../../assets/images/depiladora.png'),
   productDescription: 'Depiladora con Cable Satinelle Essential BRE225 PHILIPS',
-  productSubCategory: 21,
+  productCategory: 'Cuidado personal',
   productColor: 'Blanco',
  },
  {
@@ -104,7 +104,7 @@ export const products = [
   productPrice: 229000,
   productImage: require('../../assets/images/balanza.png'),
   productDescription: 'Balanza Digital',
-  productSubCategory: 21,
+  productCategory: 'Cuidado personal',
   productColor: 'Negro',
  },
  {
@@ -113,7 +113,7 @@ export const products = [
   productPrice: 259000,
   productImage: require('../../assets/images/cepillo_limpieza_facial.png'),
   productDescription: 'Cepillo de Limpieza Facial',
-  productSubCategory: 21,
+  productCategory: 'Cuidado personal',
   productColor: 'Blanco',
  },
  {
@@ -122,7 +122,7 @@ export const products = [
   productPrice: 559000,
   productImage: require('../../assets/images/perfume_hombre.png'),
   productDescription: 'Giorgio Armani Acqua Di Gio Absolu 125 ml',
-  productSubCategory: 21,
+  productCategory: 'Belleza',
   productColor: 'Blanco',
  },
  {
@@ -131,7 +131,7 @@ export const products = [
   productPrice: 619000,
   productImage: require('../../assets/images/perfume_mujer.png'),
   productDescription: 'N°5 Eau Première Vaporizador',
-  productSubCategory: 25,
+  productCategory: 'Belleza',
   productColor: 'Blanco',
  },
  {
@@ -140,7 +140,7 @@ export const products = [
   productPrice: 78000,
   productImage: require('../../assets/images/crema_de_afeitar_hombre.png'),
   productDescription: 'Crema de afeitar Light Hold Texture Lotion',
-  productSubCategory: 28,
+  productCategory: 'Belleza',
   productColor: 'Blanco',
  },
  {
@@ -149,7 +149,7 @@ export const products = [
   productPrice: 89900,
   productImage: require('../../assets/images/cojin_geometrico.png'),
   productDescription: 'Cojín Geométrico Black & White',
-  productSubCategory: 31,
+  productCategory: 'Hogar',
   productColor: 'Blanco',
  },
  {
@@ -158,7 +158,7 @@ export const products = [
   productPrice: 89900,
   productImage: require('../../assets/images/copas.png'),
   productDescription: 'Set x 4 Copas Gin Ferrand',
-  productSubCategory: 34,
+  productCategory: 'Hogar',
   productColor: 'Blanco',
  },
  {
@@ -167,7 +167,7 @@ export const products = [
   productPrice: 249500,
   productImage: require('../../assets/images/bowl.png'),
   productDescription: 'Bowl Swoop Mediano',
-  productSubCategory: 34,
+  productCategory: 'Hogar',
   productColor: 'Blanco',
  },
  {
@@ -176,7 +176,7 @@ export const products = [
   productPrice: 249500,
   productImage: require('../../assets/images/audifonos.png'),
   productDescription: 'Audífonos Over Ear Bluetooth Sony WH-CH510',
-  productSubCategory: 9,
+  productCategory: 'Tecnologia',
   productColor: 'Azul',
  },
  {
@@ -185,7 +185,7 @@ export const products = [
   productPrice: 59000,
   productImage: require('../../assets/images/cargador.png'),
   productDescription: 'Cargador T34 Pared rápido PD 20W',
-  productSubCategory: 6,
+  productCategory: 'Tecnologia',
   productColor: 'Azul',
  },
  {
@@ -194,7 +194,7 @@ export const products = [
   productPrice: 199000,
   productImage: require('../../assets/images/parlantes.png'),
   productDescription: 'Parlante Inalámbrico Bluetooth Sony SRS-XB13 Negro',
-  productSubCategory: 9,
+  productCategory: 'Tecnologia',
   productColor: 'Rosado',
  },
  {
@@ -203,7 +203,7 @@ export const products = [
   productPrice: 169000,
   productImage: require('../../assets/images/labial.png'),
   productDescription: 'Dior Labial Rouge',
-  productSubCategory: 26,
+  productCategory: 'Belleza',
   productColor: '525 Cherie - Metallic',
  },
  {
@@ -212,7 +212,7 @@ export const products = [
   productPrice: 538000,
   productImage: require('../../assets/images/base_maquillaje.png'),
   productDescription: 'Base de Maquillaje Infallible Pro-Matte',
-  productSubCategory: 26,
+  productCategory: 'Belleza',
   productColor: '525 Cherie - Metallic',
  },
 ];

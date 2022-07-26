@@ -35,6 +35,7 @@ export default function AddClient({ navigation }) {
     <View style={styles.stepContainer}>
      <StepIndicatorComponent step={step} />
     </View>
+
     <View style={styles.formContainer}>
      <View style={styles.card}>
       <TextInput

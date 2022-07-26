@@ -6,14 +6,22 @@ import { Skeleton } from 'moti/skeleton';
 
 const skeletonElements = [...Array(8).keys()];
 
-export default function NewSaleScreen({ navigation }) {
+export default function NewSaleScreen({ route, navigation }) {
  const [cathegories, setCathegories] = useState(null);
+
+ //aqui esta el id de la categoria
+ //console.log(route.params.id);
+
+ const { descripcion } = route.params;
+ const cathegoryName = descripcion;
 
  const getCathegories = async () => {
   try {
    const response = await axios(
-    'https://incoveapp.herokuapp.com/api/v1/categorias_list/'
+    'https://incoveapp.herokuapp.com/api/v1/subcategorias_list/'
    );
+
+   console.log(response.data.filter((el) => el.categoria === route.params.id));
 
    const cuttingFirstPosition = response.data.slice(1);
    setCathegories(cuttingFirstPosition);
@@ -28,12 +36,15 @@ export default function NewSaleScreen({ navigation }) {
 
  return (
   <View style={styles.container}>
+   <View style={styles.title}>
+    <Text style={globalStyles.typography.regular[4]}>{cathegoryName}</Text>
+   </View>
    <View style={styles.cardContainer}>
     {/* si queremos agregar mas categorias y hacer scroll debemos cambiar el .map por un flatList */}
     {cathegories
      ? cathegories.map((cathegory) => (
         <TouchableWithoutFeedback
-         onPress={() => navigation.navigate('SubCathegory', cathegory)}
+         onPress={() => navigation.navigate('SelectProduct', cathegory)}
          key={cathegory.id}>
          <View
           style={{
@@ -89,6 +100,13 @@ const styles = StyleSheet.create({
  container: {
   flex: 1,
   backgroundColor: 'white',
+ },
+ title: {
+  alignItems: 'flex-start',
+  justifyContent: 'center',
+  width: '100%',
+  backgroundColor: globalStyles.palette.neutral[0],
+  paddingLeft: 24,
  },
  cardContainer: {
   marginTop: 18,

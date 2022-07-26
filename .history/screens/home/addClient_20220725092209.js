@@ -1,4 +1,11 @@
-import { Text, View, StyleSheet, Pressable, Dimensions } from 'react-native';
+import {
+ Text,
+ View,
+ StyleSheet,
+ Pressable,
+ Dimensions,
+ Picker,
+} from 'react-native';
 import StepIndicatorComponent from '../../components/homeScreen/stepIndicatorComponent/stepIndicatorComponent';
 import { globalStyles } from '../../styles/global';
 import { useDispatch } from 'react-redux';

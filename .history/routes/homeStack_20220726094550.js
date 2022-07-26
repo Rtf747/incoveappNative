@@ -1,6 +1,5 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import HomeScreen from '../screens/home/homeScreen';
-import SubCathegory from '../screens/home/subCathegory';
 import DetailScreen from '../screens/home/detailScreen';
 import DetailProductScreen from '../screens/home/detailProductScreen';
 import NewSaleScreen from '../screens/home/newSaleScreen';
@@ -48,28 +47,6 @@ export default function HomeStack({ navigation }) {
        />
       </TouchableWithoutFeedback>
      ),
-     headerRight: () => (
-      <TouchableWithoutFeedback>
-       <MaterialIcons
-        name='search'
-        size={24}
-        color='black'
-        style={{
-         marginRight: 10,
-        }}
-       />
-      </TouchableWithoutFeedback>
-     ),
-    }}
-   />
-   <Stack.Screen
-    name='SubCathegory'
-    component={SubCathegory}
-    options={{
-     headerTitle: 'Subcategoria',
-     headerTitleStyle: globalStyles.typography.semiBold[3],
-     headerTitleAlign: 'center',
-     headerShadowVisible: false,
      headerRight: () => (
       <TouchableWithoutFeedback>
        <MaterialIcons

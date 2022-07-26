@@ -1,4 +1,5 @@
 import { Text, View, StyleSheet, Pressable, Dimensions } from 'react-native';
+import { Picker } from '@react-native-picker/picker';
 import StepIndicatorComponent from '../../components/homeScreen/stepIndicatorComponent/stepIndicatorComponent';
 import { globalStyles } from '../../styles/global';
 import { useDispatch } from 'react-redux';
@@ -6,10 +7,12 @@ import { TextInput, DefaultTheme, Snackbar } from 'react-native-paper';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import useAddClientForm from '../../hooks/useAddClientForm/useAddClientForm';
 import { useState } from 'react';
+import RNPickerSelect from 'react-native-picker-select';
 
 const height = Dimensions.get('window').height;
 
 export default function AddClient({ navigation }) {
+ const [selectedLanguage, setSelectedLanguage] = useState();
  const [visible, setVisible] = useState(false);
  const step = 0;
 
@@ -37,6 +40,12 @@ export default function AddClient({ navigation }) {
     </View>
     <View style={styles.formContainer}>
      <View style={styles.card}>
+      <Picker
+       selectedValue={selectedLanguage}
+       onValueChange={(itemValue, itemIndex) => setSelectedLanguage(itemValue)}>
+       <Picker.Item label='Java' value='java' />
+       <Picker.Item label='JavaScript' value='js' />
+      </Picker>
       <TextInput
        label='Nombre'
        activeUnderlineColor={globalStyles.palette.primary[100]}

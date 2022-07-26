@@ -22,8 +22,7 @@ export default function SelectProduct({ route, navigation }) {
  const onDismissError = () => setError(false);
 
  const { descripcion } = route.params;
- const subCathegoryName = descripcion;
- const subCathegoryId = route.params.id;
+ const cathegoryName = descripcion;
 
  const categorizedProducts = useSelector(
   (state) => state.inventory.categorizedProducts
@@ -42,7 +41,7 @@ export default function SelectProduct({ route, navigation }) {
   );
 
  useEffect(() => {
-  dispatch(filterProducts(subCathegoryId));
+  dispatch(filterProducts(cathegoryName));
  }, []);
 
  const onSubmit = () => {
@@ -57,7 +56,7 @@ export default function SelectProduct({ route, navigation }) {
   <>
    <View style={styles.title}>
     <Text style={globalStyles.typography.regular[4]}>
-     {subCathegoryName.charAt(0).toUpperCase() + subCathegoryName.slice(1)}
+     {cathegoryName.charAt(0).toUpperCase() + cathegoryName.slice(1)}
     </Text>
    </View>
    <View style={styles.container}>

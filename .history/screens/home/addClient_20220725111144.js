@@ -6,6 +6,7 @@ import { TextInput, DefaultTheme, Snackbar } from 'react-native-paper';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import useAddClientForm from '../../hooks/useAddClientForm/useAddClientForm';
 import { useState } from 'react';
+//import RNPickerSelect from 'react-native-picker-select';
 
 const height = Dimensions.get('window').height;
 
@@ -37,6 +38,14 @@ export default function AddClient({ navigation }) {
     </View>
     <View style={styles.formContainer}>
      <View style={styles.card}>
+      <RNPickerSelect
+       onValueChange={(value) => console.log(value)}
+       items={[
+        { label: 'Football', value: 'football' },
+        { label: 'Baseball', value: 'baseball' },
+        { label: 'Hockey', value: 'hockey' },
+       ]}
+      />
       <TextInput
        label='Nombre'
        activeUnderlineColor={globalStyles.palette.primary[100]}

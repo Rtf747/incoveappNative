@@ -33,7 +33,7 @@ export default function NewSaleScreen({ navigation }) {
     {cathegories
      ? cathegories.map((cathegory) => (
         <TouchableWithoutFeedback
-         onPress={() => navigation.navigate('SubCathegory', cathegory)}
+         onPress={() => navigation.navigate('SelectProduct', cathegory)}
          key={cathegory.id}>
          <View
           style={{

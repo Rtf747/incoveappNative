@@ -77,7 +77,7 @@ export const products = [
   productPrice: 89000,
   productImage: require('../../assets/images/plancha.png'),
   productDescription: 'Plancha a Vapor 2000 W WIRON-1001CER',
-  productSubCategory: 18,
+  productSubCategory: 19,
   productColor: 'Negro',
  },
  {

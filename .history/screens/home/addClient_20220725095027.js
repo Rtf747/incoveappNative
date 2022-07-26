@@ -37,6 +37,7 @@ export default function AddClient({ navigation }) {
     </View>
     <View style={styles.formContainer}>
      <View style={styles.card}>
+      <Picker selectedValue={'something'} style={{ height: 50, width: 150 }} />
       <TextInput
        label='Nombre'
        activeUnderlineColor={globalStyles.palette.primary[100]}

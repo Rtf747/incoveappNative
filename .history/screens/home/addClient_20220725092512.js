@@ -1,4 +1,11 @@
-import { Text, View, StyleSheet, Pressable, Dimensions } from 'react-native';
+import {
+ Text,
+ View,
+ StyleSheet,
+ Pressable,
+ Dimensions,
+ Picker,
+} from 'react-native';
 import StepIndicatorComponent from '../../components/homeScreen/stepIndicatorComponent/stepIndicatorComponent';
 import { globalStyles } from '../../styles/global';
 import { useDispatch } from 'react-redux';
@@ -37,6 +44,10 @@ export default function AddClient({ navigation }) {
     </View>
     <View style={styles.formContainer}>
      <View style={styles.card}>
+      <selectedValue
+       selectedValue={'something'}
+       style={{ height: 50, width: 150 }}
+      />
       <TextInput
        label='Nombre'
        activeUnderlineColor={globalStyles.palette.primary[100]}

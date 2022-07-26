@@ -35,6 +35,7 @@ export default function AddClient({ navigation }) {
     <View style={styles.stepContainer}>
      <StepIndicatorComponent step={step} />
     </View>
+
     <View style={styles.formContainer}>
      <View style={styles.card}>
       <TextInput
@@ -253,7 +254,7 @@ const styles = StyleSheet.create({
   justifyContent: 'space-between',
  },
  card: {
-  backgroundColor: globalStyles.palette.primary[10],
+  backgroundColor: globalStyles.palette.primary[100],
   borderRadius: 12,
   paddingHorizontal: 16,
   paddingVertical: 24,

@@ -6,8 +6,11 @@ import { Skeleton } from 'moti/skeleton';
 
 const skeletonElements = [...Array(8).keys()];
 
-export default function NewSaleScreen({ navigation }) {
+export default function NewSaleScreen({ route, navigation }) {
  const [cathegories, setCathegories] = useState(null);
+
+ const { descripcion } = route.params;
+ const cathegoryName = descripcion;
 
  const getCathegories = async () => {
   try {
@@ -28,12 +31,15 @@ export default function NewSaleScreen({ navigation }) {
 
  return (
   <View style={styles.container}>
+   <View style={styles.title}>
+    <Text style={globalStyles.typography.regular[4]}>{cathegoryName}</Text>
+   </View>
    <View style={styles.cardContainer}>
     {/* si queremos agregar mas categorias y hacer scroll debemos cambiar el .map por un flatList */}
     {cathegories
      ? cathegories.map((cathegory) => (
         <TouchableWithoutFeedback
-         onPress={() => navigation.navigate('SubCathegory', cathegory)}
+         onPress={() => navigation.navigate('SelectProduct', cathegory)}
          key={cathegory.id}>
          <View
           style={{
