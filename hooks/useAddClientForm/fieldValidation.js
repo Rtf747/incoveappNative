@@ -1,5 +1,6 @@
 const fieldValidation = (target, value) => {
  const nameRegex = /^[A-Za-zÑñÁáÉéÍíÓóÚúÜü\s]+$/;
+ const lastNameRegex = /^[A-Za-zÑñÁáÉéÍíÓóÚúÜü\s]+$/;
  const cedulaRegex = /^[0-9]{10}$/;
  const addressRegex = /^[#.0-9a-zA-Z\s,-]+$/;
  const phoneRegex = /^[0-9]{10}$/;
@@ -7,6 +8,7 @@ const fieldValidation = (target, value) => {
 
  const validations = {
   name: nameRegex.test(value.trim()),
+  lastName: lastNameRegex.test(value.trim()),
   cedula: cedulaRegex.test(value.trim()),
   address: addressRegex.test(value.trim()),
   phone: phoneRegex.test(value.trim()),

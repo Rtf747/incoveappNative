@@ -1,6 +1,7 @@
 const validForm = (form) => {
  const {
   nameIsValid,
+  lastNameIsValid,
   cedulaIsValid,
   addressIsValid,
   phoneIsValid,
@@ -9,6 +10,7 @@ const validForm = (form) => {
 
  if (
   nameIsValid &&
+  lastNameIsValid &&
   cedulaIsValid &&
   addressIsValid &&
   phoneIsValid &&

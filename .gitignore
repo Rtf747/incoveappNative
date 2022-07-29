@@ -1,5 +1,5 @@
 node_modules/
-.history
+.history/
 .expo/
 dist/
 npm-debug.*
@@ -10,6 +10,9 @@ npm-debug.*
 *.mobileprovision
 *.orig.*
 web-build/
+
+
+.history/
 
 # macOS
 .DS_Store
