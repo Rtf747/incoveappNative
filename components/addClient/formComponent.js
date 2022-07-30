@@ -11,10 +11,12 @@ const FormComponent = ({ form, handleChange }) => {
  const [department, setDepartment] = useState(null);
 
  const handleChangeDepartment = (option) => {
-  const cities = option.ciudades.map((el, i) => {
+  // console.log(option.departamento, option.id);
+  handleChange('department', option.departamento);
+  const cities = option.ciudades.map((city, index) => {
    return {
-    key: i + 1,
-    label: el,
+    key: index + 1,
+    label: city,
    };
   });
 
@@ -117,7 +119,8 @@ const FormComponent = ({ form, handleChange }) => {
     }}
     cancelText='Cancelar'
     onChange={(option) => {
-     console.log(option);
+     // console.log(option);
+     handleChange('documentType', option.label);
     }}
    />
 
@@ -213,8 +216,7 @@ const FormComponent = ({ form, handleChange }) => {
       }}
       cancelText='Cancelar'
       onChange={(option) => {
-       // handleChangeDepartment(option);
-       console.log('exito');
+       handleChange('city', option.label);
       }}
      />
     </View>

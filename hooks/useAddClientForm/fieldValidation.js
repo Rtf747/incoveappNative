@@ -13,6 +13,9 @@ const fieldValidation = (target, value) => {
   address: addressRegex.test(value.trim()),
   phone: phoneRegex.test(value.trim()),
   email: emailRegex.test(value.trim()),
+  documentType: true,
+  department: true,
+  city: true,
  };
 
  const select = validations[target];
