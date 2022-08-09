@@ -3,11 +3,13 @@
   "version": ">= 0.34.0"
  },
  "build": {
-  "base": {
-   "env": {}
+  "preview": {
+   "android": {
+    "buildType": "apk"
+   }
   },
 
-  "preview": {
+  "preview2": {
    "distribution": "internal"
   },
 

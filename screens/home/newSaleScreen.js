@@ -15,7 +15,7 @@ export default function NewSaleScreen({ navigation }) {
     'https://incoveapp.herokuapp.com/api/v1/categorias_list/'
    );
 
-   const cuttingFirstPosition = response.data.slice(1);
+   const cuttingFirstPosition = response.data;
    setCathegories(cuttingFirstPosition);
   } catch (error) {
    console.error(error);

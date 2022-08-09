@@ -7,6 +7,7 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import useAddClientForm from '../../hooks/useAddClientForm/useAddClientForm';
 import { useState } from 'react';
 import FormComponent from '../../components/addClient/formComponent';
+import { selectClient } from '../../features/clientData/clientSlice';
 
 export default function AddClient({ navigation }) {
  const [visible, setVisible] = useState(false);
@@ -23,6 +24,7 @@ export default function AddClient({ navigation }) {
  const onSubmit = () => {
   handleSubmit();
   navigation.navigate('payMethod');
+  dispatch(selectClient(form));
  };
 
  return (

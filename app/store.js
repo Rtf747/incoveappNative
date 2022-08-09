@@ -1,6 +1,8 @@
 import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
 import salesReducer from '../features/sales/salesSlice';
 import inventoryReducer from '../features/inventory/inventorySlice';
+import clientDataReducer from '../features/clientData/clientSlice';
+import payMethodReducer from '../features/payMethod/payMethodSlice';
 
 //debugg
 const middlewares = getDefaultMiddleware({
@@ -18,6 +20,8 @@ export const store = configureStore({
  reducer: {
   sales: salesReducer,
   inventory: inventoryReducer,
+  clientData: clientDataReducer,
+  payMethod: payMethodReducer,
  },
  /* debug */
  middleware: middlewares,

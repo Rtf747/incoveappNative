@@ -3,7 +3,7 @@ import CardComponent from '../../components/homeScreen/cardComponent/cardCompone
 import { useSelector } from 'react-redux';
 import { globalStyles } from '../../styles/global';
 import { MaterialIcons } from '@expo/vector-icons';
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import SheetComponent from '../../components/homeScreen/sheetComponent/sheetComponent';
 import { IconButton } from 'react-native-paper';
 

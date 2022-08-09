@@ -39,7 +39,7 @@ export default function DetailProductScreen({ route, navigation }) {
  } = route.params;
 
  return (
-  <ScrollView style={styles.container}>
+  <View style={styles.container}>
    <View style={styles.imageContainer}>
     <Image source={productImage} style={styles.image} />
    </View>
@@ -103,7 +103,7 @@ export default function DetailProductScreen({ route, navigation }) {
     }}>
     Producto Eliminado
    </Snackbar>
-  </ScrollView>
+  </View>
  );
 }
 
@@ -114,7 +114,7 @@ const styles = StyleSheet.create({
   backgroundColor: '#fff',
  },
  imageContainer: {
-  flex: 1,
+  flex: 2,
   justifyContent: 'center',
   alignItems: 'center',
  },
@@ -133,7 +133,7 @@ const styles = StyleSheet.create({
   letterSpacing: 1,
  },
  detailsContainer: {
-  flex: 1,
+  flex: 2,
  },
  totalLabel: {
   color: globalStyles.palette.neutral[60],
@@ -178,7 +178,8 @@ const styles = StyleSheet.create({
   },
  ],
  buttonContainer: {
-  flex: 2,
+  flex: 1,
+  justifyContent: 'flex-end',
   marginTop: 24,
  },
  button: {

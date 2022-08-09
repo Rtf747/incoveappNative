@@ -5,6 +5,8 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import DrawerIcons from './components/drawerIcons/drawerIcons';
 import { screens } from './routes/drawerScreens';
+import * as Location from 'expo-location';
+import { useEffect, useState } from 'react';
 
 /*-- connecting with flipper --*/
 import { connectToDevTools } from 'react-devtools-core';
@@ -18,7 +20,29 @@ if (__DEV__) {
 /*------------------------------*/
 
 export default function App() {
+ const [location, setLocation] = useState(null);
+ const [errorMsg, setErrorMsg] = useState(null);
  const Drawer = createDrawerNavigator();
+
+ /*  useEffect(() => {
+  (async () => {
+   let { status } = await Location.requestForegroundPermissionsAsync();
+   if (status !== 'granted') {
+    setErrorMsg('Permission to access location was denied');
+    return;
+   }
+
+   let location = await Location.getCurrentPositionAsync({});
+   setLocation(location);
+  })();
+ }, []);
+
+ let text = 'Waiting..';
+ if (errorMsg) {
+  text = errorMsg;
+ } else if (location) {
+  text = JSON.stringify(location);
+ } */
 
  return (
   <Provider store={store}>

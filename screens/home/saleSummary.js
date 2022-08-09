@@ -13,6 +13,19 @@ import NumberFormat from 'react-number-format';
 
 export default function SaleSummary({ navigation }) {
  const products = useSelector((state) => state.inventory.products);
+ const client = useSelector((state) => state.clientData.selectedClient);
+
+ const {
+  name,
+  lastName,
+  documentType,
+  cedula,
+  department,
+  city,
+  address,
+  phone,
+  email,
+ } = client;
 
  const product = products.find((product) => product.productId === 5);
  const {
@@ -44,7 +57,7 @@ export default function SaleSummary({ navigation }) {
       <Text style={globalStyles.typography.extraBold[1]}>{value}</Text>
      )}
     />
-    <Text style={styles.totalLabel}>Valor total del producto</Text>
+    <Text style={styles.totalLabel}>Valor total de la venta</Text>
    </View>
    <View style={styles.detailsContainer}>
     <View style={styles.orderInfoTitle}>
@@ -94,26 +107,43 @@ export default function SaleSummary({ navigation }) {
     </View>
     <View style={styles.descriptionContainer}>
      <Text style={styles.leftContainer}>Nombre</Text>
-     <Text style={styles.rightContainer}>Ricardo Lahura</Text>
+     <Text style={styles.rightContainer}>{`${lastName} ${name}`}</Text>
     </View>
     <View style={styles.descriptionContainer}>
-     <Text style={styles.leftContainer}>Cedula</Text>
-     <Text style={styles.rightContainer}>1.123.456.789</Text>
+     <Text style={styles.leftContainer}>{documentType}</Text>
+     <NumberFormat
+      value={cedula}
+      thousandSeparator='.'
+      decimalSeparator=','
+      displayType='text'
+      renderText={(value) => <Text style={styles.rightContainer}>{value}</Text>}
+     />
     </View>
     <View style={styles.descriptionContainer}>
      <Text style={styles.leftContainer}>Dirección</Text>
-     <Text style={styles.rightContainer}>Calle 93 # 19-75 de Bogota</Text>
+     <Text
+      style={
+       styles.rightContainer
+      }>{`${address}, ${city}, ${department}`}</Text>
     </View>
     <View style={styles.descriptionContainer}>
      <Text style={styles.leftContainer}>Telefono</Text>
-     <Text style={styles.rightContainer}>1-123-456-789</Text>
+     <NumberFormat
+      value={phone}
+      thousandSeparator='-'
+      decimalSeparator=','
+      displayType='text'
+      renderText={(value) => <Text style={styles.rightContainer}>{value}</Text>}
+     />
     </View>
     <View style={styles.descriptionContainer}>
      <Text style={styles.leftContainer}>Correo Electronico</Text>
-     <Text style={styles.rightContainer}>ricardo@gmail.com</Text>
+     <Text style={styles.rightContainer}>{email}</Text>
     </View>
     <View style={styles.orderInfoTitle}>
-     <Text style={globalStyles.typography.regular[3]}>Datos del producto</Text>
+     <Text style={globalStyles.typography.regular[3]}>
+      Detalles del producto
+     </Text>
     </View>
     <View style={styles.descriptionContainer}>
      <Text style={styles.leftContainer}>Marca</Text>
