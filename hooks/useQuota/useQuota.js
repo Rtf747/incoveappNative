@@ -8,7 +8,7 @@ export default function useQuota() {
   let quotaAmount;
 
   if (lowPrice) {
-   quotaAmount = 5000;
+   quotaAmount = 7000;
    return quotaCalculator(price, quotaAmount);
   }
 

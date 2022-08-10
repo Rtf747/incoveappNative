@@ -1296,4 +1296,20 @@ export const colombia = [
   ],
  },
 ];
-/*  */
+
+[
+ '1000327741',
+ 'El Junco',
+ '1000327742',
+ 'El Oro',
+ '1000327743',
+ 'El Socorro',
+ '1000327744',
+ 'Membrillal',
+ '1000327745',
+ 'Pendiente',
+ '1000327746',
+ 'Remartín',
+ '1000327747',
+ 'Sabanalarga',
+];
