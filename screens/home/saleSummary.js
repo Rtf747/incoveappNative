@@ -1,19 +1,33 @@
-import {
- Text,
- View,
- Image,
- StyleSheet,
- Pressable,
- ScrollView,
-} from 'react-native';
+import { Text, View, StyleSheet, Pressable, ScrollView } from 'react-native';
+import { useSelector, useDispatch } from 'react-redux';
 import StepIndicatorComponent from '../../components/homeScreen/stepIndicatorComponent/stepIndicatorComponent';
-import { useSelector } from 'react-redux';
 import { globalStyles } from '../../styles/global';
 import NumberFormat from 'react-number-format';
+import usePayInterval from '../../hooks/usePayInterval/usePayInterval';
+import InaccurateQuotas from '../../components/payMethod/inaccurateQuotas';
+import ExactQuotas from '../../components/payMethod/exactQuotas';
 
 export default function SaleSummary({ navigation }) {
+ const cart = useSelector((state) => state.inventory.cart);
+
+ const totalAmount = cart
+  .map((product) => product.quantity * product.productPrice)
+  .reduce((previousValue, currentValue) => previousValue + currentValue, 0);
+
+ const payMethod = useSelector((state) => state.payMethod);
  const products = useSelector((state) => state.inventory.products);
  const client = useSelector((state) => state.clientData.selectedClient);
+
+ console.log(payMethod);
+ const {
+  typeOfQuota,
+  initialPay,
+  lastQuota,
+  numberOfPayments,
+  payInterval,
+  quotaAmount,
+  totalCalculated,
+ } = payMethod;
 
  const {
   name,
@@ -39,6 +53,8 @@ export default function SaleSummary({ navigation }) {
 
  const step = 2;
 
+ const { interval } = usePayInterval();
+
  return (
   <ScrollView style={styles.container}>
    <View style={styles.stepContainer}>
@@ -46,7 +62,7 @@ export default function SaleSummary({ navigation }) {
    </View>
    <View style={styles.productPriceContainer}>
     <NumberFormat
-     value={productPrice}
+     value={totalAmount}
      displayType='text'
      thousandSeparator='.'
      decimalSeparator=','
@@ -64,35 +80,71 @@ export default function SaleSummary({ navigation }) {
      <Text style={globalStyles.typography.regular[3]}>Método de pago</Text>
     </View>
     <View style={styles.descriptionContainer}>
-     <Text style={styles.leftContainer}>12 cuotas</Text>
-     <NumberFormat
-      value={productPrice / 12}
-      displayType='text'
-      thousandSeparator='.'
-      decimalSeparator=','
-      decimalScale={2}
-      fixedDecimalScale={true}
-      prefix='$'
-      renderText={(value) => <Text style={styles.rightContainer}>{value}</Text>}
-     />
+     <Text style={styles.leftContainer}>Intervalo de pagos</Text>
+     <Text> {interval(payInterval)}</Text>
     </View>
+
+    {typeOfQuota === 'exactQuotas' ? (
+     <View style={styles.descriptionContainer}>
+      <Text style={styles.leftContainer}>{numberOfPayments} cuotas</Text>
+      <NumberFormat
+       value={quotaAmount}
+       isNumericString={true}
+       displayType='text'
+       thousandSeparator='.'
+       decimalSeparator=','
+       decimalScale={2}
+       prefix='$'
+       renderText={(value) => (
+        <Text style={styles.rightContainer}>{value}</Text>
+       )}
+      />
+     </View>
+    ) : (
+     <>
+      {numberOfPayments <= 0 ? null : (
+       <View style={styles.descriptionContainer}>
+        <Text style={styles.leftContainer}>{numberOfPayments} cuotas</Text>
+        <NumberFormat
+         value={quotaAmount}
+         isNumericString={true}
+         displayType='text'
+         thousandSeparator='.'
+         decimalSeparator=','
+         decimalScale={2}
+         prefix='$'
+         renderText={(value) => (
+          <Text style={styles.rightContainer}>{value}</Text>
+         )}
+        />
+       </View>
+      )}
+      <View style={styles.descriptionContainer}>
+       <Text style={styles.leftContainer}>1 cuota</Text>
+       <NumberFormat
+        value={lastQuota}
+        isNumericString={true}
+        displayType='text'
+        thousandSeparator='.'
+        decimalSeparator=','
+        decimalScale={2}
+        prefix='$'
+        renderText={(value) => (
+         <Text style={styles.rightContainer}>{value}</Text>
+        )}
+       />
+      </View>
+     </>
+    )}
+
     <View style={styles.descriptionContainer}>
      <Text style={styles.leftContainer}>Abono inicial</Text>
-     <NumberFormat
-      value={0}
-      displayType='text'
-      thousandSeparator='.'
-      decimalSeparator=','
-      decimalScale={2}
-      fixedDecimalScale={true}
-      prefix='$'
-      renderText={(value) => <Text style={styles.rightContainer}>{value}</Text>}
-     />
+     <Text>{initialPay}</Text>
     </View>
     <View style={styles.descriptionContainer}>
      <Text style={styles.leftContainer}>Por pagar</Text>
      <NumberFormat
-      value={productPrice}
+      value={totalCalculated}
       displayType='text'
       thousandSeparator='.'
       decimalSeparator=','

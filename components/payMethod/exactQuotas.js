@@ -3,7 +3,7 @@ import React from 'react';
 import { globalStyles } from '../../styles/global';
 import NumberFormat from 'react-number-format';
 
-const ExactQuotas = ({ totalAmount, cuota, quotaAmount }) => {
+const ExactQuotas = ({ cuota, quotaAmount, totalCalculated }) => {
  return (
   <>
    <View style={styles.descriptionContainer}>
@@ -61,11 +61,11 @@ const ExactQuotas = ({ totalAmount, cuota, quotaAmount }) => {
        fontSize: 20,
       },
      ]}>
-     Total
+     Por pagar
     </Text>
     <Text style={styles.rightContainer}>
      <NumberFormat
-      value={totalAmount.toFixed(2)}
+      value={totalCalculated.toFixed(2)}
       isNumericString={true}
       displayType='text'
       thousandSeparator='.'

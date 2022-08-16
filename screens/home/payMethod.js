@@ -1,7 +1,6 @@
 import { Text, View, StyleSheet, Pressable } from 'react-native';
 import StepIndicatorComponent from '../../components/homeScreen/stepIndicatorComponent/stepIndicatorComponent';
 import { globalStyles } from '../../styles/global';
-import { RadioButton } from 'react-native-paper';
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import useQuota from '../../hooks/useQuota/useQuota';
@@ -9,163 +8,104 @@ import InaccurateQuotas from '../../components/payMethod/inaccurateQuotas';
 import ExactQuotas from '../../components/payMethod/exactQuotas';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { MaskedTextInput } from 'react-native-mask-text';
+import RadioButtonComponent from '../../components/payMethod/radioButton/radioButtonComponent';
+import { radioButtons } from '../../data/radioButtons';
+import { selectPayMethod } from '../../features/payMethod/payMethodSlice';
+
+const step = 1;
 
 export default function PayMethod({ navigation }) {
- const [lastQuota, setLastQuota] = useState('');
- const [cuota, setCuota] = useState('12');
- const [quotaAmount, setQuotaAmount] = useState('');
- const [typeOfQuota, setTypeOfQuota] = useState('exactQuotas');
- const [payInterval, setPayInterval] = useState('daily');
- const [initialPay, setInitialPay] = useState(0);
-
  const cart = useSelector((state) => state.inventory.cart);
 
  const totalAmount = cart
   .map((product) => product.quantity * product.productPrice)
   .reduce((previousValue, currentValue) => previousValue + currentValue, 0);
 
+ const [typeOfQuota, setTypeOfQuota] = useState('exactQuotas');
+ //cantidad de cuotas a pagar
+ const [cuota, setCuota] = useState('12');
+ //monto de las cuotas
+ const [quotaAmount, setQuotaAmount] = useState('');
+ //monto de la ultima cuota
+ const [lastQuota, setLastQuota] = useState('');
+ //valor del radio button seleccionado
+ const [payInterval, setPayInterval] = useState('daily');
+ //abono inicial
+ const [initialPay, setInitialPay] = useState('0');
+ //valor restante a pagar
+ const [totalCalculated, setTotalCalculated] = useState(totalAmount);
+
+ const dispatch = useDispatch();
+
  const { quotaValidator } = useQuota();
 
- const handleChange = (value) => {
-  console.log(value);
-  setInitialPay(value);
+ const handleChange = (text) => {
+  setInitialPay(text);
+ };
+
+ const onSubmit = () => {
+  navigation.navigate('saleSummary');
+  dispatch(
+   selectPayMethod({
+    typeOfQuota,
+    numberOfPayments: cuota,
+    quotaAmount: quotaAmount,
+    lastQuota: lastQuota,
+    payInterval: payInterval,
+    initialPay: initialPay,
+    totalCalculated: totalCalculated,
+   })
+  );
  };
 
  useEffect(() => {
-  const numberOFQuotas = quotaValidator(totalAmount).numberOfQuotas;
-  const quotaAmount = quotaValidator(totalAmount).quotaAmount;
-  const lastQuota = quotaValidator(totalAmount).lastQuota;
+  const initialPayWithoutPrefix = initialPay.replace('$', '');
+  const initialPayWithoutComma = initialPayWithoutPrefix.replace(',', '');
+  const parsedInitialPay = parseFloat(initialPayWithoutComma);
 
-  setTypeOfQuota(quotaValidator(totalAmount).id);
+  setTotalCalculated(totalAmount - parsedInitialPay);
+
+  const numberOFQuotas = quotaValidator(
+   totalAmount - parsedInitialPay
+  ).numberOfQuotas;
+  const quotaAmount = quotaValidator(
+   totalAmount - parsedInitialPay
+  ).quotaAmount;
+  const lastQuota = quotaValidator(totalAmount - parsedInitialPay).lastQuota;
+
+  setTypeOfQuota(quotaValidator(totalAmount - parsedInitialPay).id);
   setQuotaAmount(quotaAmount);
   setCuota(numberOFQuotas);
   setLastQuota(lastQuota);
- }, []);
+ }, [initialPay]);
 
- const step = 1;
  return (
   <>
    <View style={styles.container}>
-    <KeyboardAwareScrollView
-     contentContainerStyle={{
-      flexGrow: 1,
-      justifyContent: 'space-between',
-     }}>
+    <KeyboardAwareScrollView contentContainerStyle={styles.KeyboardAwareStyle}>
      <View style={styles.stepContainer}>
       <StepIndicatorComponent step={step} />
      </View>
-     {typeOfQuota === 'exactQuotas' ? (
-      <ExactQuotas
-       totalAmount={totalAmount}
-       cuota={cuota}
-       quotaAmount={quotaAmount}
-      />
-     ) : (
-      <InaccurateQuotas
-       totalAmount={totalAmount}
-       cuota={cuota}
-       quotaAmount={quotaAmount}
-       lastQuota={lastQuota}
-      />
-     )}
-     <View
-      style={{
-       borderTopColor: '#e6e6e6',
-       borderTopWidth: 1,
-       paddingTop: 20,
-      }}>
-      <Text
-       style={{
-        fontWeight: 'bold',
-       }}>
-       Intervalo de pagos
-      </Text>
+     <View style={styles.intervalContainer}>
+      <Text style={styles.interval}>Intervalo de pagos</Text>
      </View>
      <View style={styles.cuotasContainer}>
-      <View style={styles.radioButtonGroup}>
-       <Text
-        style={{
-         color:
-          payInterval === 'daily'
-           ? globalStyles.palette.primary[100]
-           : globalStyles.palette.neutral[50],
-        }}>
-        Diario
-       </Text>
-       <RadioButton
-        uncheckedColor={globalStyles.palette.neutral[50]}
-        color={globalStyles.palette.primary[100]}
-        value='daily'
-        status={payInterval === 'daily' ? 'checked' : 'unchecked'}
-        onPress={() => setPayInterval('daily')}
+      {radioButtons.map((el) => (
+       <RadioButtonComponent
+        key={el.name}
+        name={el.name}
+        label={el.label}
+        payInterval={payInterval}
+        setPayInterval={setPayInterval}
        />
-      </View>
-      <View style={styles.radioButtonGroup}>
-       <Text
-        style={{
-         color:
-          payInterval === 'weekly'
-           ? globalStyles.palette.primary[100]
-           : globalStyles.palette.neutral[50],
-        }}>
-        Semanal
-       </Text>
-       <RadioButton
-        uncheckedColor={globalStyles.palette.neutral[50]}
-        color={globalStyles.palette.primary[100]}
-        value='weekly'
-        status={payInterval === 'weekly' ? 'checked' : 'unchecked'}
-        onPress={() => setPayInterval('weekly')}
-       />
-      </View>
-      <View style={styles.radioButtonGroup}>
-       <Text
-        style={{
-         color:
-          payInterval === 'fortnightly'
-           ? globalStyles.palette.primary[100]
-           : globalStyles.palette.neutral[50],
-        }}>
-        Quincenal
-       </Text>
-       <RadioButton
-        uncheckedColor={globalStyles.palette.neutral[50]}
-        color={globalStyles.palette.primary[100]}
-        value='fortnightly'
-        status={payInterval === 'fortnightly' ? 'checked' : 'unchecked'}
-        onPress={() => setPayInterval('fortnightly')}
-       />
-      </View>
-      <View style={styles.radioButtonGroup}>
-       <Text
-        style={{
-         color:
-          payInterval === 'monthly'
-           ? globalStyles.palette.primary[100]
-           : globalStyles.palette.neutral[50],
-        }}>
-        Mensual
-       </Text>
-       <RadioButton
-        uncheckedColor={globalStyles.palette.neutral[50]}
-        color={globalStyles.palette.primary[100]}
-        value='monthly'
-        status={payInterval === 'monthly' ? 'checked' : 'unchecked'}
-        onPress={() => setPayInterval('monthly')}
-       />
-      </View>
+      ))}
      </View>
      <View>
-      <Text
-       style={{
-        fontWeight: 'bold',
-        marginTop: 20,
-       }}>
-       Abono inicial
-      </Text>
+      <Text style={styles.firstPay}>Abono inicial</Text>
      </View>
      <View style={styles.installmentContainer}>
       <MaskedTextInput
+       maxLength={11}
        type='currency'
        options={{
         prefix: '$',
@@ -174,23 +114,33 @@ export default function PayMethod({ navigation }) {
         precision: 2,
        }}
        onChangeText={(text, rawText) => {
-        console.log(text);
-        setInitialPay(text);
-        //console.log(rawText);
+        handleChange(text);
        }}
-       style={{
-        fontSize: 30,
-       }}
+       style={styles.firstPayInput}
        keyboardType='numeric'
       />
      </View>
-
+     {typeOfQuota === 'exactQuotas' ? (
+      <ExactQuotas
+       cuota={cuota}
+       quotaAmount={quotaAmount}
+       totalCalculated={totalCalculated}
+      />
+     ) : (
+      <InaccurateQuotas
+       totalAmount={totalAmount}
+       cuota={cuota}
+       quotaAmount={quotaAmount}
+       lastQuota={lastQuota}
+       totalCalculated={totalCalculated}
+      />
+     )}
      <View style={styles.buttonContainer}>
       <Pressable
        android_ripple={{ color: '#fff' }}
-       style={styles.buttonCash}
-       onPress={() => navigation.navigate('saleSummary')}>
-       <Text style={styles.textButtonCash}>Aceptar</Text>
+       style={styles.button}
+       onPress={onSubmit}>
+       <Text style={styles.textButton}>Aceptar</Text>
       </Pressable>
      </View>
     </KeyboardAwareScrollView>
@@ -205,30 +155,27 @@ const styles = StyleSheet.create({
   backgroundColor: 'white',
   paddingHorizontal: 24,
  },
+ KeyboardAwareStyle: {
+  flexGrow: 1,
+  justifyContent: 'space-between',
+ },
  stepContainer: {
   paddingVertical: 16,
  },
- leftContainer: {
-  color: globalStyles.palette.neutral[50],
-  flex: 1,
+ intervalContainer: {
+  borderTopColor: '#e6e6e6',
+  borderTopWidth: 1,
+  paddingTop: 20,
  },
- rightContainer: {
-  flex: 1,
-  textAlign: 'right',
+ interval: {
+  fontWeight: 'bold',
  },
- descriptionContainer: {
-  flex: 0.1,
-  flexDirection: 'row',
-  justifyContent: 'space-between',
-  marginTop: 16,
+ firstPay: {
+  fontWeight: 'bold',
+  paddingTop: 20,
+  borderTopWidth: 1,
+  borderTopColor: '#e6e6e6',
  },
- inputTextContainer: {
-  flex: 0.5,
-  alignItems: 'center',
-  justifyContent: 'flex-start',
-  backgroundColor: 'peru',
- },
-
  cuotasContainer: {
   flex: 0.3,
   flexDirection: 'row',
@@ -237,42 +184,24 @@ const styles = StyleSheet.create({
   borderBottomColor: '#e6e6e6',
   borderBottomWidth: 1,
   paddingBottom: 20,
-  //backgroundColor: 'papayawhip',
+ },
+ firstPayInput: {
+  fontSize: 30,
  },
  installmentContainer: {
-  flex: 0.5,
+  flex: 0.2,
   alignItems: 'center',
   justifyContent: 'center',
-  //backgroundColor: 'pink',
   paddingVertical: 10,
- },
- totalContainer: {
-  flex: 0.5,
-  flexDirection: 'row',
-  alignItems: 'center',
-  justifyContent: 'space-between',
-  borderTopWidth: 1,
-  borderColor: globalStyles.palette.neutral[10],
-  paddingHorizontal: 28,
-  backgroundColor: 'paleturquoise',
- },
-
- installment: [
-  {
-   fontSize: 50,
-  },
-  //   globalStyles.typography.semiBold[1]
- ],
- radioButtonGroup: {
-  alignItems: 'center',
-  flexDirection: 'column-reverse',
+  borderBottomWidth: 1,
+  borderBottomColor: '#e6e6e6',
  },
 
  buttonContainer: {
   flex: 0.5,
   justifyContent: 'flex-end',
  },
- buttonCash: {
+ button: {
   alignItems: 'center',
   justifyContent: 'center',
   paddingVertical: 12,
@@ -281,7 +210,7 @@ const styles = StyleSheet.create({
   backgroundColor: globalStyles.palette.primary[100],
   marginBottom: 8,
  },
- textButtonCash: {
+ textButton: {
   paddingVertical: 5,
   fontSize: 16,
   lineHeight: 21,

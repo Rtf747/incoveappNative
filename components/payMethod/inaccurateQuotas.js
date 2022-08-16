@@ -2,8 +2,14 @@ import { View, Text, StyleSheet } from 'react-native';
 import React from 'react';
 import { globalStyles } from '../../styles/global';
 import NumberFormat from 'react-number-format';
+import { useState } from 'react';
 
-const InaccurateQuotas = ({ totalAmount, cuota, quotaAmount, lastQuota }) => {
+const InaccurateQuotas = ({
+ cuota,
+ quotaAmount,
+ lastQuota,
+ totalCalculated,
+}) => {
  return (
   <>
    <View style={styles.descriptionContainer}>
@@ -27,21 +33,23 @@ const InaccurateQuotas = ({ totalAmount, cuota, quotaAmount, lastQuota }) => {
      Monto
     </Text>
    </View>
-   <View style={styles.descriptionContainer}>
-    <Text style={styles.leftContainer}>{cuota}</Text>
-    <Text style={styles.rightContainer}>
-     <NumberFormat
-      value={quotaAmount}
-      isNumericString={true}
-      displayType='text'
-      thousandSeparator='.'
-      decimalSeparator=','
-      decimalScale={2}
-      prefix='$'
-      renderText={(value) => <Text> {value} </Text>}
-     />
-    </Text>
-   </View>
+   {cuota <= 0 ? null : (
+    <View style={styles.descriptionContainer}>
+     <Text style={styles.leftContainer}>{cuota}</Text>
+     <Text style={styles.rightContainer}>
+      <NumberFormat
+       value={quotaAmount}
+       isNumericString={true}
+       displayType='text'
+       thousandSeparator='.'
+       decimalSeparator=','
+       decimalScale={2}
+       prefix='$'
+       renderText={(value) => <Text> {value} </Text>}
+      />
+     </Text>
+    </View>
+   )}
    <View style={styles.descriptionContainer}>
     <Text style={styles.leftContainer}>1</Text>
     <Text style={styles.rightContainer}>
@@ -75,11 +83,11 @@ const InaccurateQuotas = ({ totalAmount, cuota, quotaAmount, lastQuota }) => {
        fontSize: 20,
       },
      ]}>
-     Total
+     Por pagar
     </Text>
     <Text style={styles.rightContainer}>
      <NumberFormat
-      value={totalAmount.toFixed(2)}
+      value={totalCalculated.toFixed(2)}
       isNumericString={true}
       displayType='text'
       thousandSeparator='.'
