@@ -16,6 +16,8 @@ import { globalStyles } from '../styles/global';
 import { Pressable } from 'react-native';
 import { toggleDeleteModal } from '../features/inventory/inventorySlice';
 import { useDispatch } from 'react-redux';
+import SelectClient from '../screens/home/selectClient';
+
 export default function HomeStack({ navigation }) {
  const Stack = createNativeStackNavigator();
  const openDrawer = navigation.openDrawer;
@@ -48,6 +50,28 @@ export default function HomeStack({ navigation }) {
        />
       </TouchableWithoutFeedback>
      ),
+     headerRight: () => (
+      <TouchableWithoutFeedback>
+       <MaterialIcons
+        name='search'
+        size={24}
+        color='black'
+        style={{
+         marginRight: 10,
+        }}
+       />
+      </TouchableWithoutFeedback>
+     ),
+    }}
+   />
+   <Stack.Screen
+    name='SelectClient'
+    component={SelectClient}
+    options={{
+     headerTitle: 'Lista de clientes',
+     headerTitleStyle: globalStyles.typography.semiBold[3],
+     headerTitleAlign: 'center',
+     headerShadowVisible: false,
      headerRight: () => (
       <TouchableWithoutFeedback>
        <MaterialIcons
@@ -187,7 +211,8 @@ export default function HomeStack({ navigation }) {
      headerTitleAlign: 'center',
      headerShadowVisible: false,
      headerRight: () => (
-      <TouchableWithoutFeedback>
+      <TouchableWithoutFeedback
+       onPress={() => navigation.navigate('SelectClient')}>
        <MaterialIcons
         name='search'
         size={24}

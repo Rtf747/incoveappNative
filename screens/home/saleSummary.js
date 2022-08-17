@@ -4,8 +4,6 @@ import StepIndicatorComponent from '../../components/homeScreen/stepIndicatorCom
 import { globalStyles } from '../../styles/global';
 import NumberFormat from 'react-number-format';
 import usePayInterval from '../../hooks/usePayInterval/usePayInterval';
-import InaccurateQuotas from '../../components/payMethod/inaccurateQuotas';
-import ExactQuotas from '../../components/payMethod/exactQuotas';
 
 export default function SaleSummary({ navigation }) {
  const cart = useSelector((state) => state.inventory.cart);
@@ -15,10 +13,9 @@ export default function SaleSummary({ navigation }) {
   .reduce((previousValue, currentValue) => previousValue + currentValue, 0);
 
  const payMethod = useSelector((state) => state.payMethod);
- const products = useSelector((state) => state.inventory.products);
+ const products = useSelector((state) => state.inventory.cart);
  const client = useSelector((state) => state.clientData.selectedClient);
 
- console.log(payMethod);
  const {
   typeOfQuota,
   initialPay,
@@ -40,16 +37,6 @@ export default function SaleSummary({ navigation }) {
   phone,
   email,
  } = client;
-
- const product = products.find((product) => product.productId === 5);
- const {
-  productId,
-  productName,
-  productPrice,
-  productImage,
-  productDescription,
-  productColor,
- } = product;
 
  const step = 2;
 
@@ -197,20 +184,47 @@ export default function SaleSummary({ navigation }) {
       Detalles del producto
      </Text>
     </View>
-    <View style={styles.descriptionContainer}>
-     <Text style={styles.leftContainer}>Marca</Text>
-     <Text style={styles.rightContainer}>OSTER</Text>
-    </View>
-    <View style={styles.descriptionContainer}>
-     <Text style={styles.leftContainer}>Descripcion</Text>
-     <Text style={styles.rightContainer}>
-      Freidora de aire de 5.5 Litros CKSTAF55
-     </Text>
-    </View>
-    <View style={styles.descriptionContainer}>
-     <Text style={styles.leftContainer}>Color</Text>
-     <Text style={styles.rightContainer}>Negro</Text>
-    </View>
+    {products.map((product) => (
+     <View
+      key={product.productId}
+      style={{
+       borderBottomWidth: 1,
+       borderBottomColor: '#e6e6e6',
+       paddingVertical: 10,
+      }}>
+      <View style={styles.descriptionContainer}>
+       <Text style={styles.leftContainer}>Cantidad</Text>
+       <Text style={styles.rightContainer}>{product.quantity}</Text>
+      </View>
+      <View style={styles.descriptionContainer}>
+       <Text style={styles.leftContainer}>Marca</Text>
+       <Text style={styles.rightContainer}>{product.productName}</Text>
+      </View>
+      <View style={styles.descriptionContainer}>
+       <Text style={styles.leftContainer}>Descripción</Text>
+       <Text style={styles.rightContainer}>{product.productDescription}</Text>
+      </View>
+      <View style={styles.descriptionContainer}>
+       <Text style={styles.leftContainer}>Color</Text>
+       <Text style={styles.rightContainer}>{product.productColor}</Text>
+      </View>
+      <View style={styles.descriptionContainer}>
+       <Text style={styles.leftContainer}>Precio</Text>
+       <NumberFormat
+        value={product.productPrice.toFixed(2)}
+        isNumericString={true}
+        displayType='text'
+        thousandSeparator='.'
+        decimalSeparator=','
+        decimalScale={2}
+        prefix='$'
+        renderText={(value) => (
+         <Text style={styles.rightContainer}>{value}</Text>
+        )}
+       />
+      </View>
+     </View>
+    ))}
    </View>
    <View style={styles.buttonContainer}>
     <Pressable

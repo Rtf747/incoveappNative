@@ -68,8 +68,9 @@ export default function SelectedProducts({ navigation }) {
      style={styles.button}
      android_ripple={{ color: '#fff' }}
      //development status
+     onPress={() => navigation.navigate('addClient')}
      //onPress={() => navigation.navigate('payMethod')}
-     onPress={() => navigation.navigate('addClient')}>
+    >
      <Text style={styles.textButton}>Procesar</Text>
      <NumberFormat
       value={totalAmount}

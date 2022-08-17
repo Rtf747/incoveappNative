@@ -1,8 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { clientData } from './clientData';
+import { clientList } from './clientList';
 
 const initialState = {
  clientData: clientData,
+ clientList,
  selectedClient: [],
 };
 
