@@ -1,6 +1,7 @@
 import { StyleSheet, Text, View, Image, Pressable } from 'react-native';
 import { globalStyles } from '../../../styles/global';
 import { MaterialIcons } from '@expo/vector-icons';
+import { Avatar } from 'react-native-paper';
 
 export default function ClientComponent({
  item,
@@ -15,14 +16,57 @@ export default function ClientComponent({
  email,
  navigation,
 }) {
+ const initials = `${name.slice(0, 1)}${lastName.slice(0, 1)}`;
+
+ const colors = [
+  'aqua',
+  'aquamarine',
+  'chocolate',
+  'darkgoldenrod',
+  'dodgerblue',
+  'greenyellow',
+  'khaki',
+  'lightseagreen',
+  'mediumaquamarine',
+  'mediumorchid',
+  'mediumpurple',
+  'mediumvioletred',
+  'navajowhite',
+  'olivedrab',
+  'orange',
+  'orchid',
+  'peru',
+  'peachpuff',
+  'plum',
+  'royalblue',
+  'sandybrown',
+  'seagreen',
+  'salmon',
+  'teal',
+  'yellowgreen',
+  'tomato',
+  'teal',
+ ];
+
+ const getRandomInt = (max) => {
+  return Math.floor(Math.random() * max);
+ };
+
  return (
   <View>
    <Pressable
-    onPress={() => navigation.navigate('DetailScreen', item)}
+    onPress={() => navigation.navigate('DetailClient', item)}
     android_ripple={{ color: globalStyles.palette.primary[100] }}>
     <View style={styles.container}>
      <View style={styles.leftContainer}>
-      <MaterialIcons name='account-circle' size={50} color='black' />
+      <Avatar.Text
+       size={50}
+       label={initials}
+       style={{
+        backgroundColor: colors[getRandomInt(colors.length)],
+       }}
+      />
+      {/* <MaterialIcons name='account-circle' size={50} color='black' /> */}
      </View>
      <View style={styles.centerContainer}>
       <Text style={[styles.itemName, globalStyles.typography.extraBold[6]]}>

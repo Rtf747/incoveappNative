@@ -51,25 +51,9 @@ export default function DetailScreen({ route }) {
    <View>
     <Text>Ricardo Lahura</Text>
    </View>
-   {/*    <View style={styles.buttonContainer}>
-    <Pressable
-     style={styles.buttonCash}
-     onPress={() => navigation.navigate('Home')}>
-     <Text style={styles.textButtonCash}>Aceptar y guardar</Text>
-    </Pressable>
-   </View> */}
   </View>
  );
 }
-
-/* introduce esto: 
-
-  <Text>{id}</Text>
-   <Text>{cedula}</Text>
-   <Text>{address}</Text>
-   <Text>{date}</Text>
-   <Text>{time}</Text>
-   <Text>{amount}</Text>*/
 
 const styles = StyleSheet.create({
  container: {

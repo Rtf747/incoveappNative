@@ -11,6 +11,7 @@ import { MaskedTextInput } from 'react-native-mask-text';
 import RadioButtonComponent from '../../components/payMethod/radioButton/radioButtonComponent';
 import { radioButtons } from '../../data/radioButtons';
 import { selectPayMethod } from '../../features/payMethod/payMethodSlice';
+import { Snackbar } from 'react-native-paper';
 
 const step = 1;
 
@@ -34,29 +35,51 @@ export default function PayMethod({ navigation }) {
  const [initialPay, setInitialPay] = useState('0');
  //valor restante a pagar
  const [totalCalculated, setTotalCalculated] = useState(totalAmount);
+ //snackbar visible
+ const [visible, setVisible] = useState(false);
+
+ const [validation, setValidation] = useState(true);
 
  const dispatch = useDispatch();
 
  const { quotaValidator } = useQuota();
+
+ const onDismissSnackBar = () => setVisible(false);
+
+ const validationTotal = () => {
+  if (totalCalculated < 0) {
+   setValidation(false);
+  } else {
+   setValidation(true);
+  }
+ };
 
  const handleChange = (text) => {
   setInitialPay(text);
  };
 
  const onSubmit = () => {
-  navigation.navigate('saleSummary');
-  dispatch(
-   selectPayMethod({
-    typeOfQuota,
-    numberOfPayments: cuota,
-    quotaAmount: quotaAmount,
-    lastQuota: lastQuota,
-    payInterval: payInterval,
-    initialPay: initialPay,
-    totalCalculated: totalCalculated,
-   })
-  );
+  if (validation) {
+   navigation.navigate('saleSummary');
+   dispatch(
+    selectPayMethod({
+     typeOfQuota,
+     numberOfPayments: cuota,
+     quotaAmount: quotaAmount,
+     lastQuota: lastQuota,
+     payInterval: payInterval,
+     initialPay: initialPay,
+     totalCalculated: totalCalculated,
+    })
+   );
+  } else {
+   setVisible(true);
+  }
  };
+
+ useEffect(() => {
+  validationTotal();
+ }, [totalCalculated]);
 
  useEffect(() => {
   const initialPayWithoutPrefix = initialPay.replace('$', '');
@@ -135,10 +158,27 @@ export default function PayMethod({ navigation }) {
        totalCalculated={totalCalculated}
       />
      )}
+     <Snackbar
+      style={{
+       backgroundColor: globalStyles.palette.accent.red[100],
+       zIndex: 1,
+      }}
+      duration={3000}
+      visible={visible}
+      onDismiss={onDismissSnackBar}>
+      <Text>El abono inicial</Text> no puede superar al monto total
+     </Snackbar>
      <View style={styles.buttonContainer}>
       <Pressable
        android_ripple={{ color: '#fff' }}
-       style={styles.button}
+       style={[
+        styles.button,
+        {
+         backgroundColor: validation
+          ? globalStyles.palette.primary[100]
+          : 'white',
+        },
+       ]}
        onPress={onSubmit}>
        <Text style={styles.textButton}>Aceptar</Text>
       </Pressable>
@@ -209,13 +249,16 @@ const styles = StyleSheet.create({
   borderRadius: 12,
   backgroundColor: globalStyles.palette.primary[100],
   marginBottom: 8,
+  borderColor: '#e7e7e8',
+  borderWidth: 1,
  },
+
  textButton: {
   paddingVertical: 5,
   fontSize: 16,
   lineHeight: 21,
   fontWeight: 'bold',
   letterSpacing: 0.25,
-  color: 'white',
+  color: '#e7e7e8',
  },
 });

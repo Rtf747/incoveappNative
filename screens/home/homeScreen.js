@@ -1,62 +1,70 @@
 import { StyleSheet, Text, View, FlatList } from 'react-native';
 import CardComponent from '../../components/homeScreen/cardComponent/cardComponent';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { globalStyles } from '../../styles/global';
 import { MaterialIcons } from '@expo/vector-icons';
-import { useRef, useState } from 'react';
+import { useCallback, useRef } from 'react';
 import SheetComponent from '../../components/homeScreen/sheetComponent/sheetComponent';
 import { IconButton } from 'react-native-paper';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import { useFocusEffect } from '@react-navigation/native';
+import { turnOffSearch } from '../../features/sales/salesSlice';
 
 export default function HomeScreen({ navigation }) {
- const sales = useSelector((state) => state.sales);
+ const sales = useSelector((state) => state.sales.filterSales);
  const bottomSheet = useRef();
+
+ const dispatch = useDispatch();
+
+ useFocusEffect(
+  useCallback(() => {
+   dispatch(turnOffSearch());
+  }, [navigation])
+ );
 
  return (
   <>
    <SheetComponent bottomSheet={bottomSheet} />
-   <View style={styles.total}>
-    <Text style={[styles.totalText, globalStyles.typography.semiBold[7]]}>
-     Total hoy: $255,000
-    </Text>
-   </View>
-   <View style={styles.title}>
-    <Text style={globalStyles.typography.regular[4]}>Últimas ventas</Text>
-   </View>
-   <View style={styles.container}>
-    <FlatList
-     data={sales}
-     style={styles.list}
-     renderItem={({ item }) => (
-      <CardComponent
-       item={item}
-       image={item.image}
-       clientName={item.clientName}
-       description={item.address}
-       amount={item.amount}
-       productColor={item.productColor}
-       navigation={navigation}
+   <View
+    style={{
+     flex: 1,
+     backgroundColor: globalStyles.palette.neutral[0],
+    }}>
+    <KeyboardAwareScrollView>
+     <View style={styles.container}>
+      {sales.map((sale, index) => (
+       <CardComponent
+        key={index}
+        item={sale}
+        image={sale.image}
+        clientName={sale.clientName}
+        description={sale.address}
+        amount={sale.amount}
+        productColor={sale.productColor}
+        navigation={navigation}
+       />
+      ))}
+     </View>
+    </KeyboardAwareScrollView>
+    <View style={styles.boxContainer}>
+     <View style={styles.box}>
+      <IconButton
+       type='outlined'
+       icon={() => <MaterialIcons name='tune' size={24} color='black' />}
+       color={globalStyles.palette.primary[100]}
+       size={20}
+       style={styles.iconBox}
+       onPress={() => bottomSheet.current.show()}
       />
-     )}
-    />
-   </View>
-   <View style={styles.boxContainer}>
-    <View style={styles.box}>
-     <IconButton
-      type='outlined'
-      icon={() => <MaterialIcons name='tune' size={24} color='black' />}
-      color={globalStyles.palette.primary[100]}
-      size={20}
-      style={styles.iconBox}
-      onPress={() => bottomSheet.current.show()}
-     />
-     <IconButton
-      type='outlined'
-      icon={() => <MaterialIcons name='add' size={24} color='black' />}
-      color={globalStyles.palette.primary[100]}
-      size={20}
-      style={styles.iconBox}
-      onPress={() => navigation.navigate('NewSaleScreen')}
-     />
+      <IconButton
+       type='outlined'
+       icon={() => <MaterialIcons name='add' size={24} color='black' />}
+       color={globalStyles.palette.primary[100]}
+       size={20}
+       style={styles.iconBox}
+       onPress={() => navigation.navigate('NewSaleScreen')}
+      />
+     </View>
     </View>
    </View>
   </>
@@ -64,34 +72,12 @@ export default function HomeScreen({ navigation }) {
 }
 
 const styles = StyleSheet.create({
- total: {
-  backgroundColor: globalStyles.palette.neutral[0],
-  alignItems: 'center',
- },
- totalText: {
-  backgroundColor: globalStyles.palette.secondary[10],
-  paddingHorizontal: 8,
-  paddingVertical: 5,
-  borderRadius: 12,
- },
  container: {
-  paddingBottom: 70,
+  paddingBottom: 30,
   backgroundColor: globalStyles.palette.neutral[0],
   flex: 1,
  },
 
- title: {
-  alignItems: 'flex-start',
-  justifyContent: 'center',
-  width: '100%',
-  backgroundColor: globalStyles.palette.neutral[0],
-  paddingLeft: 24,
- },
-
- listTitle: {
-  fontSize: 16,
-  marginLeft: 8,
- },
  boxContainer: {
   position: 'absolute',
   alignItems: 'center',

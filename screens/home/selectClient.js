@@ -1,18 +1,29 @@
 import { StyleSheet, Text, View, FlatList } from 'react-native';
 import ClientComponent from '../../components/homeScreen/cardComponent/clientComponent';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { globalStyles } from '../../styles/global';
+import { useFocusEffect } from '@react-navigation/native';
+import { turnOffSearch } from '../../features/clientData/clientSlice';
+import { useCallback } from 'react';
 
 export default function SelectClient({ navigation }) {
  const clientList = useSelector((state) => state.clientData.clientList);
 
- console.log(clientList.map((el) => el.name));
+ const filterClient = useSelector((state) => state.clientData.filterClient);
+
+ const dispatch = useDispatch();
+
+ useFocusEffect(
+  useCallback(() => {
+   dispatch(turnOffSearch());
+  }, [navigation])
+ );
 
  return (
   <>
    <View style={styles.container}>
     <FlatList
-     data={clientList}
+     data={filterClient}
      style={styles.list}
      renderItem={({ item }) => (
       <ClientComponent

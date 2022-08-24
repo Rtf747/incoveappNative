@@ -197,6 +197,7 @@ export const products = [
   productSubCategory: 9,
   productColor: 'Rosado',
  },
+
  {
   productId: 23,
   productName: 'DIOR',

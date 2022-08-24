@@ -5,6 +5,8 @@ const initialState = {
  products: products,
  categorizedProducts: [],
  cart: [],
+ filterProducts: [],
+ searchVisible: false,
  deleteModalVisible: false,
 };
 
@@ -59,6 +61,28 @@ export const inventorySlice = createSlice({
     cart: [],
    };
   },
+  searchProduct: (state, action) => {
+   const keyword = action.payload;
+
+   if (keyword !== '') {
+    const results = state.categorizedProducts.filter((product) => {
+     return (
+      product.productName.toLowerCase().includes(keyword) ||
+      product.productDescription.toLowerCase().includes(keyword)
+     );
+    });
+
+    state.filterProducts = results;
+   } else {
+    state.filterProducts = state.categorizedProducts;
+   }
+  },
+  toggleSearch: (state) => {
+   state.searchVisible = !state.searchVisible;
+  },
+  turnOffSearch: (state) => {
+   state.searchVisible = false;
+  },
  },
 });
 
@@ -68,6 +92,9 @@ export const {
  removeFromCart,
  clearCart,
  toggleDeleteModal,
+ searchProduct,
+ toggleSearch,
+ turnOffSearch,
 } = inventorySlice.actions;
 
 export default inventorySlice.reducer;

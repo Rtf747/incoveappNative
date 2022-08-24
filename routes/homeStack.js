@@ -11,18 +11,101 @@ import SaleSummary from '../screens/home/saleSummary';
 import SelectedProducts from '../screens/home/selectedProducts';
 import { MaterialIcons } from '@expo/vector-icons';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { TouchableWithoutFeedback } from 'react-native';
+import { TextInput, TouchableWithoutFeedback } from 'react-native';
 import { globalStyles } from '../styles/global';
 import { Pressable } from 'react-native';
 import { toggleDeleteModal } from '../features/inventory/inventorySlice';
-import { useDispatch } from 'react-redux';
+import { searchSale, toggleSearch } from '../features/sales/salesSlice';
+import { toggleSearch as productToggleSearch } from '../features/inventory/inventorySlice';
+import { toggleSearch as clientToggleSearch } from '../features/clientData/clientSlice';
+import { searchProduct } from '../features/inventory/inventorySlice';
+import { searchClient } from '../features/clientData/clientSlice';
+import { useSelector, useDispatch } from 'react-redux';
 import SelectClient from '../screens/home/selectClient';
+import DetailClient from '../screens/home/detailClient';
 
 export default function HomeStack({ navigation }) {
+ const saleSearchVisible = useSelector((state) => state.sales.searchVisible);
+ const productSearchVisible = useSelector(
+  (state) => state.inventory.searchVisible
+ );
+ const clientSearchVisible = useSelector(
+  (state) => state.clientData.searchVisible
+ );
+
+ const dispatch = useDispatch();
+
  const Stack = createNativeStackNavigator();
  const openDrawer = navigation.openDrawer;
 
- const dispatch = useDispatch();
+ const selectProductTitle = () => {
+  if (productSearchVisible) {
+   return () => (
+    <TextInput
+     style={{
+      width: 250,
+      borderWidth: 1,
+      borderRadius: 15,
+      textAlign: 'center',
+     }}
+     selectionColor={globalStyles.palette.primary[100]}
+     placeholder='Buscar...'
+     returnKeyType='search'
+     textContentType='none'
+     cancelButtonTitle='Cancel'
+     onChangeText={(value) => dispatch(searchProduct(value))}
+    />
+   );
+  }
+
+  return 'Productos';
+ };
+
+ const homeHeaderTitle = () => {
+  if (saleSearchVisible) {
+   return () => (
+    <TextInput
+     style={{
+      width: 250,
+      borderWidth: 1,
+      borderRadius: 15,
+      textAlign: 'center',
+     }}
+     selectionColor={globalStyles.palette.primary[100]}
+     placeholder='Buscar...'
+     returnKeyType='search'
+     textContentType='none'
+     cancelButtonTitle='Cancel'
+     onChangeText={(value) => dispatch(searchSale(value))}
+    />
+   );
+  }
+
+  return 'Últimas ventas';
+ };
+
+ const selectClientHeaderTitle = () => {
+  if (clientSearchVisible) {
+   return () => (
+    <TextInput
+     style={{
+      width: 250,
+      borderWidth: 1,
+      borderRadius: 15,
+      textAlign: 'center',
+     }}
+     selectionColor={globalStyles.palette.primary[100]}
+     placeholder='Buscar...'
+     returnKeyType='search'
+     textContentType='none'
+     cancelButtonTitle='Cancel'
+     onChangeText={(value) => dispatch(searchClient(value))}
+    />
+   );
+  }
+
+  return 'Lista de clientes';
+ };
 
  const onPress = () => {
   dispatch(toggleDeleteModal());
@@ -34,12 +117,12 @@ export default function HomeStack({ navigation }) {
     name='Home'
     component={HomeScreen}
     options={{
-     headerTitle: 'Inicio',
+     headerTitle: homeHeaderTitle(),
      headerTitleStyle: globalStyles.typography.semiBold[3],
      headerTitleAlign: 'center',
      headerShadowVisible: false,
      headerLeft: () => (
-      <TouchableWithoutFeedback onPress={() => openDrawer()}>
+      <Pressable onPress={() => openDrawer()}>
        <MaterialIcons
         name='menu'
         size={24}
@@ -48,10 +131,10 @@ export default function HomeStack({ navigation }) {
          marginLeft: 10,
         }}
        />
-      </TouchableWithoutFeedback>
+      </Pressable>
      ),
      headerRight: () => (
-      <TouchableWithoutFeedback>
+      <Pressable onPress={() => dispatch(toggleSearch())}>
        <MaterialIcons
         name='search'
         size={24}
@@ -60,7 +143,7 @@ export default function HomeStack({ navigation }) {
          marginRight: 10,
         }}
        />
-      </TouchableWithoutFeedback>
+      </Pressable>
      ),
     }}
    />
@@ -68,21 +151,14 @@ export default function HomeStack({ navigation }) {
     name='SelectClient'
     component={SelectClient}
     options={{
-     headerTitle: 'Lista de clientes',
+     headerTitle: selectClientHeaderTitle(),
      headerTitleStyle: globalStyles.typography.semiBold[3],
      headerTitleAlign: 'center',
      headerShadowVisible: false,
      headerRight: () => (
-      <TouchableWithoutFeedback>
-       <MaterialIcons
-        name='search'
-        size={24}
-        color='black'
-        style={{
-         marginRight: 10,
-        }}
-       />
-      </TouchableWithoutFeedback>
+      <Pressable onPress={() => dispatch(clientToggleSearch())}>
+       <MaterialIcons name='search' size={24} color='black' />
+      </Pressable>
      ),
     }}
    />
@@ -94,18 +170,6 @@ export default function HomeStack({ navigation }) {
      headerTitleStyle: globalStyles.typography.semiBold[3],
      headerTitleAlign: 'center',
      headerShadowVisible: false,
-     headerRight: () => (
-      <TouchableWithoutFeedback>
-       <MaterialIcons
-        name='search'
-        size={24}
-        color='black'
-        style={{
-         marginRight: 10,
-        }}
-       />
-      </TouchableWithoutFeedback>
-     ),
     }}
    />
    <Stack.Screen
@@ -113,6 +177,16 @@ export default function HomeStack({ navigation }) {
     component={DetailScreen}
     options={{
      headerTitle: 'Detalle de la venta',
+     headerTitleAlign: 'center',
+     headerTitleStyle: globalStyles.typography.semiBold[3],
+     headerShadowVisible: false,
+    }}
+   />
+   <Stack.Screen
+    name='DetailClient'
+    component={DetailClient}
+    options={{
+     headerTitle: 'Datos del cliente',
      headerTitleAlign: 'center',
      headerTitleStyle: globalStyles.typography.semiBold[3],
      headerShadowVisible: false,
@@ -156,30 +230,18 @@ export default function HomeStack({ navigation }) {
      headerTitleStyle: globalStyles.typography.semiBold[3],
      headerTitleAlign: 'center',
      headerShadowVisible: false,
-     headerRight: () => (
-      <TouchableWithoutFeedback>
-       <MaterialIcons
-        name='search'
-        size={24}
-        color='black'
-        style={{
-         marginRight: 10,
-        }}
-       />
-      </TouchableWithoutFeedback>
-     ),
     }}
    />
    <Stack.Screen
     name='SelectProduct'
     component={SelectProduct}
     options={{
-     headerTitle: 'Productos',
+     headerTitle: selectProductTitle(),
      headerTitleStyle: globalStyles.typography.semiBold[3],
      headerTitleAlign: 'center',
      headerShadowVisible: false,
      headerRight: () => (
-      <TouchableWithoutFeedback>
+      <Pressable onPress={() => dispatch(productToggleSearch())}>
        <MaterialIcons
         name='search'
         size={24}
@@ -188,7 +250,7 @@ export default function HomeStack({ navigation }) {
          marginRight: 10,
         }}
        />
-      </TouchableWithoutFeedback>
+      </Pressable>
      ),
     }}
    />
