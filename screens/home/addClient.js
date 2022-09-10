@@ -22,6 +22,7 @@ export default function AddClient({ navigation }) {
   useAddClientForm(navigation);
 
  const onSubmit = () => {
+  console.log(form);
   handleSubmit();
   navigation.navigate('payMethod');
   dispatch(selectClient(form));

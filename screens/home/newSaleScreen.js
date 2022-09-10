@@ -9,6 +9,14 @@ const skeletonElements = [...Array(8).keys()];
 export default function NewSaleScreen({ navigation }) {
  const [cathegories, setCathegories] = useState(null);
 
+ const handleSubmit = (cathegory) => {
+  if (cathegory.descripcion === 'Ver todo') {
+   navigation.navigate('SelectProduct', cathegory);
+  } else {
+   navigation.navigate('SubCathegory', cathegory);
+  }
+ };
+
  const getCathegories = async () => {
   try {
    const response = await axios(
@@ -33,7 +41,8 @@ export default function NewSaleScreen({ navigation }) {
     {cathegories
      ? cathegories.map((cathegory) => (
         <TouchableWithoutFeedback
-         onPress={() => navigation.navigate('SubCathegory', cathegory)}
+         onPress={() => handleSubmit(cathegory)}
+         //onPress={() => navigation.navigate('SubCathegory', cathegory)}
          key={cathegory.id}>
          <View
           style={{

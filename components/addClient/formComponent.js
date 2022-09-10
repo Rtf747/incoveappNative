@@ -11,7 +11,6 @@ const FormComponent = ({ form, handleChange }) => {
  const [department, setDepartment] = useState(null);
 
  const handleChangeDepartment = (option) => {
-  // console.log(option.departamento, option.id);
   handleChange('department', option.departamento);
   const cities = option.ciudades.map((city, index) => {
    return {
@@ -34,7 +33,6 @@ const FormComponent = ({ form, handleChange }) => {
       style={styles.input}
       value={form.name}
       onChangeText={(value) => handleChange('name', value)}
-      // onEndEditing={() => console.log('esto es onblur')}
       onSubmitEditing={() => {
        this.secondTextInput.focus();
       }}
@@ -67,7 +65,6 @@ const FormComponent = ({ form, handleChange }) => {
       style={styles.input}
       value={form.lastName}
       onChangeText={(value) => handleChange('lastName', value)}
-      onEndEditing={() => console.log('esto es onblur')}
       onSubmitEditing={() => {
        this.thirdTextInput.focus();
       }}
@@ -97,12 +94,9 @@ const FormComponent = ({ form, handleChange }) => {
     </View>
    </View>
 
-   {/* aqui va a ir tipo de documento */}
    <ModalSelector
     data={documentType}
     initValue='Tipo de documento'
-    // keyExtractor={(item) => item.id}
-    //  labelExtractor={(item) => item.departamento}
     selectTextStyle={{
      textAlign: 'left',
      marginVertical: 8,
@@ -119,7 +113,6 @@ const FormComponent = ({ form, handleChange }) => {
     }}
     cancelText='Cancelar'
     onChange={(option) => {
-     // console.log(option);
      handleChange('documentType', option.label);
     }}
    />
@@ -165,7 +158,6 @@ const FormComponent = ({ form, handleChange }) => {
 
    <View style={styles.splitter}>
     <View style={styles.leftContainer}>
-     {/* aqui vamos a colocar departamento */}
      <ModalSelector
       data={colombia}
       initValue='Departamento'
@@ -192,14 +184,10 @@ const FormComponent = ({ form, handleChange }) => {
      />
     </View>
     <View style={styles.rightContainer}>
-     {/* --------------------------- */}
-     {/* aqui vamos a colocar ciudad */}
      <ModalSelector
       data={department ? department : []}
       initValue='Ciudad'
       disabled={department ? false : true}
-      //keyExtractor={(item) => item.id}
-      //labelExtractor={(item) => item.departamento}
       selectTextStyle={{
        textAlign: 'left',
        marginVertical: 8,
@@ -223,6 +211,18 @@ const FormComponent = ({ form, handleChange }) => {
    </View>
    <TextInput
     returnKeyType='next'
+    style={styles.input}
+    label='Barrio (Opcional)'
+    activeUnderlineColor={globalStyles.palette.primary[100]}
+    onChangeText={(value) => handleChange('neighborhood', value)}
+    value={form.neighborhood}
+    onSubmitEditing={() => {
+     this.fourthTextInput.focus();
+    }}
+    blurOnSubmit={false}
+   />
+
+   <TextInput
     multiline
     style={styles.input}
     label='Dirección'

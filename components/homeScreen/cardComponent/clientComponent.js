@@ -66,7 +66,6 @@ export default function ClientComponent({
         backgroundColor: colors[getRandomInt(colors.length)],
        }}
       />
-      {/* <MaterialIcons name='account-circle' size={50} color='black' /> */}
      </View>
      <View style={styles.centerContainer}>
       <Text style={[styles.itemName, globalStyles.typography.extraBold[6]]}>

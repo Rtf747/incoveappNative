@@ -33,6 +33,7 @@ export default function SaleSummary({ navigation }) {
   cedula,
   department,
   city,
+  neighborhood,
   address,
   phone,
   email,
@@ -160,10 +161,9 @@ export default function SaleSummary({ navigation }) {
     </View>
     <View style={styles.descriptionContainer}>
      <Text style={styles.leftContainer}>Dirección</Text>
-     <Text
-      style={
-       styles.rightContainer
-      }>{`${address}, ${city}, ${department}`}</Text>
+     <Text style={styles.rightContainer}>{`${address}, ${
+      neighborhood !== '' ? neighborhood : null
+     }${neighborhood !== '' ? ',' : null}  ${city}, ${department}`}</Text>
     </View>
     <View style={styles.descriptionContainer}>
      <Text style={styles.leftContainer}>Telefono</Text>

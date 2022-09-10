@@ -39,6 +39,8 @@ export default function SelectProduct({ route, navigation }) {
   (state) => state.inventory.categorizedProducts
  );
 
+ const allProducts = useSelector((state) => state.inventory.products);
+
  const searchProduct = useSelector((state) => state.inventory.filterProducts);
 
  const cart = useSelector((state) => state.inventory.cart);

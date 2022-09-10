@@ -15,7 +15,6 @@ export default function useAddClientForm() {
 
  const handleChange = (name, value) => {
   validForm(form);
-  //console.log(form);
   if (fieldIsNotEmpty(value)) {
    fieldChange(name, value, true, form, setForm);
    if (!fieldValidation(name, value)) {

@@ -1,11 +1,4 @@
-import {
- Text,
- View,
- Image,
- StyleSheet,
- Pressable,
- ScrollView,
-} from 'react-native';
+import { Text, View, StyleSheet, Pressable, ScrollView } from 'react-native';
 import { globalStyles } from '../../styles/global';
 import NumberFormat from 'react-number-format';
 import { Snackbar } from 'react-native-paper';
@@ -13,6 +6,7 @@ import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { MaterialIcons } from '@expo/vector-icons';
 import { selectClient } from '../../features/clientData/clientSlice';
+import { Avatar } from 'react-native-paper';
 
 export default function DetailClient({ route, navigation }) {
  const [visible, setVisible] = useState(false);
@@ -39,12 +33,52 @@ export default function DetailClient({ route, navigation }) {
   phone,
  } = route.params;
 
- console.log(route.params);
+ const initials = `${name.slice(0, 1)}${lastName.slice(0, 1)}`;
+
+ const colors = [
+  'aqua',
+  'aquamarine',
+  'chocolate',
+  'darkgoldenrod',
+  'dodgerblue',
+  'greenyellow',
+  'khaki',
+  'lightseagreen',
+  'mediumaquamarine',
+  'mediumorchid',
+  'mediumpurple',
+  'mediumvioletred',
+  'navajowhite',
+  'olivedrab',
+  'orange',
+  'orchid',
+  'peru',
+  'peachpuff',
+  'plum',
+  'royalblue',
+  'sandybrown',
+  'seagreen',
+  'salmon',
+  'teal',
+  'yellowgreen',
+  'tomato',
+  'teal',
+ ];
+
+ const getRandomInt = (max) => {
+  return Math.floor(Math.random() * max);
+ };
 
  return (
   <View style={styles.container}>
    <View style={styles.imageContainer}>
-    <MaterialIcons name='account-circle' size={200} color='black' />
+    <Avatar.Text
+     size={200}
+     label={initials}
+     style={{
+      backgroundColor: colors[getRandomInt(colors.length)],
+     }}
+    />
    </View>
    <View style={styles.detailsContainer}>
     <View style={styles.descriptionContainer}>
@@ -91,15 +125,13 @@ const styles = StyleSheet.create({
   backgroundColor: 'white',
  },
  imageContainer: {
+  marginTop: 10,
+  marginBottom: 20,
   flex: 2,
   justifyContent: 'center',
   alignItems: 'center',
  },
- image: {
-  flex: 1,
-  width: 300,
-  height: 300,
- },
+
  productPriceContainer: {
   flex: 1,
   alignItems: 'center',
