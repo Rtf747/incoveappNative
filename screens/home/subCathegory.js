@@ -15,7 +15,7 @@ export default function NewSaleScreen({ route, navigation }) {
  const getCathegories = async () => {
   try {
    const response = await axios(
-    'https://incoveapp.herokuapp.com/api/v1/subcategorias_list/'
+    'https://rayparra.pythonanywhere.com/api/v1/subcategorias_list/'
    );
 
    const filterResponse = response.data.filter(

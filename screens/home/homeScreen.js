@@ -1,20 +1,21 @@
-import { StyleSheet, Text, View, FlatList } from 'react-native';
+import { StyleSheet, View, Pressable, Text } from 'react-native';
 import CardComponent from '../../components/homeScreen/cardComponent/cardComponent';
 import { useSelector, useDispatch } from 'react-redux';
 import { globalStyles } from '../../styles/global';
 import { MaterialIcons } from '@expo/vector-icons';
-import { useCallback, useRef, useEffect } from 'react';
+import { useCallback, useRef, useEffect, useState } from 'react';
 import SheetComponent from '../../components/homeScreen/sheetComponent/sheetComponent';
 import { IconButton } from 'react-native-paper';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { useFocusEffect } from '@react-navigation/native';
 import { turnOffSearch } from '../../features/sales/salesSlice';
 import axios from 'axios';
+import NetInfo from '@react-native-community/netinfo';
 
 export default function HomeScreen({ navigation }) {
  const sales = useSelector((state) => state.sales.filterSales);
- const bottomSheet = useRef();
 
+ const bottomSheet = useRef();
  const dispatch = useDispatch();
 
  useFocusEffect(
@@ -22,21 +23,12 @@ export default function HomeScreen({ navigation }) {
    dispatch(turnOffSearch());
   }, [navigation])
  );
- /*   useEffect(() => {
-  (async () => {
-   try {
-    const request = await axios.get(
-     'https://rayparra.pythonanywhere.com/api/v1/categorias_list/'
-    );
-    const response = await request.data;
 
-    console.log(response);
-   } catch (error) {
-    console.error(error);
-   }
-  })();
- }, []);
- */
+ /*  NetInfo.fetch().then((state) => {
+  console.log('Connection type', state.type);
+  console.log('Is connected?', state.isConnected);
+ }); */
+
  return (
   <>
    <SheetComponent bottomSheet={bottomSheet} />

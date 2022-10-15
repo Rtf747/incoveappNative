@@ -20,12 +20,13 @@ export default function NewSaleScreen({ navigation }) {
  const getCathegories = async () => {
   try {
    const response = await axios(
-    'https://incoveapp.herokuapp.com/api/v1/categorias_list/'
+    'https://rayparra.pythonanywhere.com/api/v1/categorias_list/'
    );
 
    const cuttingFirstPosition = response.data;
    setCathegories(cuttingFirstPosition);
   } catch (error) {
+   console.log('error');
    console.error(error);
   }
  };
@@ -94,6 +95,7 @@ export default function NewSaleScreen({ navigation }) {
   </View>
  );
 }
+
 const styles = StyleSheet.create({
  container: {
   flex: 1,

@@ -1,11 +1,22 @@
-import { Text, View, StyleSheet, Pressable, ScrollView } from 'react-native';
+import {
+ Text,
+ View,
+ StyleSheet,
+ Pressable,
+ ScrollView,
+ ActivityIndicator,
+} from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import StepIndicatorComponent from '../../components/homeScreen/stepIndicatorComponent/stepIndicatorComponent';
 import { globalStyles } from '../../styles/global';
 import NumberFormat from 'react-number-format';
 import usePayInterval from '../../hooks/usePayInterval/usePayInterval';
+import { useState } from 'react';
+import useClientRequest from '../../hooks/useClientRequest/useClientRequest';
 
 export default function SaleSummary({ navigation }) {
+ const [loading, setLoading] = useState(false);
+
  const cart = useSelector((state) => state.inventory.cart);
 
  const totalAmount = cart
@@ -41,7 +52,16 @@ export default function SaleSummary({ navigation }) {
 
  const step = 2;
 
+ const { documentHandler } = useClientRequest(documentType);
  const { interval } = usePayInterval();
+
+ const onSubmit = async () => {
+  setLoading(true);
+  console.log(documentHandler());
+  try {
+  } catch (error) {}
+  //navigation.navigate('Home');
+ };
 
  return (
   <ScrollView style={styles.container}>
@@ -227,10 +247,21 @@ export default function SaleSummary({ navigation }) {
     ))}
    </View>
    <View style={styles.buttonContainer}>
+    {loading ? (
+     <ActivityIndicator style={{ position: 'absolute', zIndex: 999 }} />
+    ) : null}
     <Pressable
-     style={styles.buttonCash}
+     disabled={loading}
+     style={[
+      styles.buttonCash,
+      {
+       backgroundColor: loading
+        ? globalStyles.palette.primary[60]
+        : globalStyles.palette.primary[100],
+      },
+     ]}
      android_ripple={{ color: '#fff' }}
-     onPress={() => navigation.navigate('Home')}>
+     onPress={() => onSubmit()}>
      <Text style={styles.textButtonCash}>Aceptar y guardar</Text>
     </Pressable>
    </View>
@@ -303,16 +334,20 @@ const styles = StyleSheet.create({
   },
  ],
  buttonContainer: {
+  position: 'relative',
   flex: 1,
+  justifyContent: 'center',
+  alignItems: 'center',
   marginTop: 24,
  },
  buttonCash: {
   alignItems: 'center',
   justifyContent: 'center',
+  width: '100%',
   paddingVertical: 12,
   paddingHorizontal: 32,
   borderRadius: 12,
-  backgroundColor: globalStyles.palette.primary[100],
+
   marginVertical: 8,
  },
  textButtonCash: {

@@ -1,5 +1,6 @@
 export const clientList = [
  {
+  id: 1,
   name: 'Rumer',
   lastName: 'Tovar',
   documentType: 'Cédula de extranjeria',
