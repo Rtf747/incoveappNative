@@ -1,35 +1,20 @@
 import { StyleSheet, Text, View, TouchableWithoutFeedback } from 'react-native';
 import { globalStyles } from '../../styles/global';
-import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { Skeleton } from 'moti/skeleton';
+import useNewSale from '../../hooks/useNewSale/useNewSale';
 
+//se utiliza para llenar un array de elementos
 const skeletonElements = [...Array(8).keys()];
 
 export default function NewSaleScreen({ navigation }) {
  const [cathegories, setCathegories] = useState(null);
 
- const handleSubmit = (cathegory) => {
-  if (cathegory.descripcion === 'Ver todo') {
-   navigation.navigate('SelectProduct', cathegory);
-  } else {
-   navigation.navigate('SubCathegory', cathegory);
-  }
- };
-
- const getCathegories = async () => {
-  try {
-   const response = await axios(
-    'https://rayparra.pythonanywhere.com/api/v1/categorias_list/'
-   );
-
-   const cuttingFirstPosition = response.data;
-   setCathegories(cuttingFirstPosition);
-  } catch (error) {
-   console.log('error');
-   console.error(error);
-  }
- };
+ const { handleSubmit, getCathegories } = useNewSale(
+  setCathegories,
+  navigation,
+  'https://rayparra.pythonanywhere.com/api/v1/categorias_list/'
+ );
 
  useEffect(() => {
   getCathegories();
@@ -43,25 +28,21 @@ export default function NewSaleScreen({ navigation }) {
      ? cathegories.map((cathegory) => (
         <TouchableWithoutFeedback
          onPress={() => handleSubmit(cathegory)}
-         //onPress={() => navigation.navigate('SubCathegory', cathegory)}
          key={cathegory.id}>
          <View
-          style={{
-           backgroundColor:
-            cathegory.descripcion === 'Ofertas'
-             ? globalStyles.palette.accent.red[10]
-             : cathegory.descripcion === 'Nuevos'
-             ? globalStyles.palette.primary[10]
-             : cathegory.descripcion === 'Ver todo'
-             ? globalStyles.palette.accent.yellow[10]
-             : globalStyles.palette.neutral[5],
-           marginTop: 10,
-           width: '48%',
-           height: '18%',
-           borderRadius: 12,
-           alignItems: 'center',
-           justifyContent: 'flex-end',
-          }}>
+          style={[
+           {
+            backgroundColor:
+             cathegory.descripcion === 'Oferta'
+              ? globalStyles.palette.accent.red[10]
+              : cathegory.descripcion === 'Nuevos'
+              ? globalStyles.palette.primary[10]
+              : cathegory.descripcion === 'Ver todo'
+              ? globalStyles.palette.accent.yellow[10]
+              : globalStyles.palette.neutral[5],
+           },
+           styles.cathegoriesCards,
+          ]}>
           <Text
            style={{
             marginBottom: 10,
@@ -80,14 +61,7 @@ export default function NewSaleScreen({ navigation }) {
         </TouchableWithoutFeedback>
        ))
      : skeletonElements.map((el) => (
-        <View
-         key={el}
-         style={{
-          marginTop: 10,
-          width: '48%',
-          height: '18%',
-          borderRadius: 12,
-         }}>
+        <View key={el} style={styles.skeletonElements}>
          <Skeleton colorMode={'light'} width={'100%'} height={'43%'} />
         </View>
        ))}
@@ -115,5 +89,19 @@ const styles = StyleSheet.create({
   width: 132.5,
   height: 80,
   borderRadius: 12,
+ },
+ skeletonElements: {
+  marginTop: 10,
+  width: '48%',
+  height: '18%',
+  borderRadius: 12,
+ },
+ cathegoriesCards: {
+  marginTop: 10,
+  width: '48%',
+  height: '18%',
+  borderRadius: 12,
+  alignItems: 'center',
+  justifyContent: 'flex-end',
  },
 });

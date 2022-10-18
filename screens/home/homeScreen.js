@@ -5,12 +5,10 @@ import { globalStyles } from '../../styles/global';
 import { MaterialIcons } from '@expo/vector-icons';
 import { useCallback, useRef, useEffect, useState } from 'react';
 import SheetComponent from '../../components/homeScreen/sheetComponent/sheetComponent';
-import { IconButton } from 'react-native-paper';
+import { Button } from 'react-native-paper';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { useFocusEffect } from '@react-navigation/native';
 import { turnOffSearch } from '../../features/sales/salesSlice';
-import axios from 'axios';
-import NetInfo from '@react-native-community/netinfo';
 
 export default function HomeScreen({ navigation }) {
  const sales = useSelector((state) => state.sales.filterSales);
@@ -24,55 +22,35 @@ export default function HomeScreen({ navigation }) {
   }, [navigation])
  );
 
- /*  NetInfo.fetch().then((state) => {
-  console.log('Connection type', state.type);
-  console.log('Is connected?', state.isConnected);
- }); */
-
  return (
   <>
    <SheetComponent bottomSheet={bottomSheet} />
-   <View
-    style={{
-     flex: 1,
-     backgroundColor: globalStyles.palette.neutral[0],
-    }}>
-    <KeyboardAwareScrollView>
-     <View style={styles.container}>
-      {sales.map((sale, index) => (
-       <CardComponent
-        key={index}
-        item={sale}
-        image={sale.image}
-        clientName={sale.clientName}
-        description={sale.address}
-        amount={sale.amount}
-        productColor={sale.productColor}
-        navigation={navigation}
-       />
-      ))}
-     </View>
-    </KeyboardAwareScrollView>
-    <View style={styles.boxContainer}>
-     <View style={styles.box}>
-      <IconButton
-       type='outlined'
-       icon={() => <MaterialIcons name='tune' size={24} color='black' />}
-       color={globalStyles.palette.primary[100]}
-       size={20}
-       style={styles.iconBox}
-       onPress={() => bottomSheet.current.show()}
+   <KeyboardAwareScrollView>
+    <View style={styles.container}>
+     {sales.map((sale, index) => (
+      <CardComponent
+       key={index}
+       item={sale}
+       image={sale.image}
+       clientName={sale.clientName}
+       description={sale.address}
+       amount={sale.amount}
+       productColor={sale.productColor}
+       navigation={navigation}
       />
-      <IconButton
-       type='outlined'
-       icon={() => <MaterialIcons name='add' size={24} color='black' />}
-       color={globalStyles.palette.primary[100]}
-       size={20}
-       style={styles.iconBox}
-       onPress={() => navigation.navigate('NewSaleScreen')}
-      />
-     </View>
+     ))}
     </View>
+   </KeyboardAwareScrollView>
+   <View style={styles.boxContainer}>
+    <Button
+     icon={() => <MaterialIcons name='add' size={24} color='white' />}
+     mode='contained'
+     color={globalStyles.palette.primary[100]}
+     size={20}
+     style={styles.iconBox}
+     onPress={() => navigation.navigate('NewSaleScreen')}>
+     Nueva Venta
+    </Button>
    </View>
   </>
  );
@@ -92,22 +70,8 @@ const styles = StyleSheet.create({
   width: '100%',
   height: 48,
  },
- box: {
-  flexDirection: 'row',
-  alignItems: 'center',
-  justifyContent: 'center',
-  width: 102,
-  height: 48,
-  borderRadius: 20,
-  backgroundColor: '#E7E7E8',
- },
  iconBox: {
-  alignItems: 'center',
-  justifyContent: 'center',
-  marginHorizontal: 4,
-  width: 36,
-  height: 36,
+  marginTop: 6,
   borderRadius: 12,
-  backgroundColor: 'white',
  },
 });
