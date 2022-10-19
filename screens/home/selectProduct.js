@@ -26,7 +26,7 @@ export default function SelectProduct({ route, navigation }) {
   onSubmit,
   cart,
   total,
- } = useSelectProduct(route, navigation, visible, setVisible, error);
+ } = useSelectProduct(route, navigation, visible, setVisible, error, setError);
 
  useFocusEffect(
   useCallback(() => {

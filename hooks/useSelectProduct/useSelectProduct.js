@@ -5,7 +5,8 @@ export default function useSelectProduct(
  navigation,
  visible,
  setVisible,
- error
+ error,
+ setError
 ) {
  const { descripcion } = route.params;
  const subCathegoryName = descripcion;
