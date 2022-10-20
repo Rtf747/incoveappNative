@@ -9,9 +9,16 @@ import {
  fieldIsNotValid,
  fieldIsEmpty,
 } from './fieldChanges';
+import { useDispatch } from 'react-redux';
+import { selectClient } from '../../features/clientData/clientSlice';
 
-export default function useAddClientForm() {
+export default function useAddClientForm(navigation, setVisible) {
  const [form, setForm] = useState(initialState);
+
+ const dispatch = useDispatch();
+
+ const onToggleSnackBar = () => setVisible(!visible);
+ const onDismissSnackBar = () => setVisible(false);
 
  const handleChange = (name, value) => {
   validForm(form);
@@ -25,6 +32,12 @@ export default function useAddClientForm() {
   } else {
    fieldIsEmpty(name, value, null, false, form, setForm);
   }
+ };
+
+ const onSubmit = () => {
+  handleSubmit();
+  navigation.navigate('payMethod');
+  dispatch(selectClient(form));
  };
 
  const handleSubmit = () => {
@@ -53,5 +66,8 @@ export default function useAddClientForm() {
   validForm,
   handleChange,
   handleSubmit,
+  onSubmit,
+  onToggleSnackBar,
+  onDismissSnackBar,
  };
 }

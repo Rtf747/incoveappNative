@@ -1,7 +1,6 @@
 import { Text, View, StyleSheet, Pressable } from 'react-native';
 import StepIndicatorComponent from '../../components/homeScreen/stepIndicatorComponent/stepIndicatorComponent';
 import { globalStyles } from '../../styles/global';
-import { useDispatch } from 'react-redux';
 import { Snackbar } from 'react-native-paper';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import useAddClientForm from '../../hooks/useAddClientForm/useAddClientForm';
@@ -13,20 +12,14 @@ export default function AddClient({ navigation }) {
  const [visible, setVisible] = useState(false);
  const step = 0;
 
- const onToggleSnackBar = () => setVisible(!visible);
- const onDismissSnackBar = () => setVisible(false);
-
- const dispatch = useDispatch();
-
- const { form, validForm, handleChange, handleSubmit } =
-  useAddClientForm(navigation);
-
- const onSubmit = () => {
-  console.log(form);
-  handleSubmit();
-  navigation.navigate('payMethod');
-  dispatch(selectClient(form));
- };
+ const {
+  form,
+  validForm,
+  handleChange,
+  onSubmit,
+  onToggleSnackBar,
+  onDismissSnackBar,
+ } = useAddClientForm(navigation, setVisible);
 
  return (
   <View style={styles.ContainerTest}>
