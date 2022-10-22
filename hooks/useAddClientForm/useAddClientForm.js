@@ -12,7 +12,7 @@ import {
 import { useDispatch } from 'react-redux';
 import { selectClient } from '../../features/clientData/clientSlice';
 
-export default function useAddClientForm(navigation, setVisible) {
+export default function useAddClientForm(navigation, setVisible, visible) {
  const [form, setForm] = useState(initialState);
 
  const dispatch = useDispatch();
