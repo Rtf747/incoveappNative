@@ -5,6 +5,7 @@ import useAddClientForm from '../../hooks/useAddClientForm/useAddClientForm';
 import { useState } from 'react';
 import FormComponent from '../../components/addClient/formComponent';
 import ButtomComponent from '../../components/addClient/buttomComponent';
+import SnackbarComponent from '../../components/addClient/snackbarComponent';
 
 export default function AddClient({ navigation }) {
  const [visible, setVisible] = useState(false);
