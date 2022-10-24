@@ -127,11 +127,11 @@ export default function PayMethod({ navigation }) {
       <Text style={styles.firstPay}>Abono inicial</Text>
      </View>
      <View style={styles.installmentContainer}>
+      <Text style={styles.prefix}>$</Text>
       <MaskedTextInput
        maxLength={11}
        type='currency'
        options={{
-        prefix: '$',
         decimalSeparator: '.',
         groupSeparator: ',',
         precision: 2,
@@ -232,9 +232,13 @@ const styles = StyleSheet.create({
   flex: 0.2,
   alignItems: 'center',
   justifyContent: 'center',
+  flexDirection: 'row',
   paddingVertical: 10,
   borderBottomWidth: 1,
   borderBottomColor: '#e6e6e6',
+ },
+ prefix: {
+  fontSize: 30,
  },
 
  buttonContainer: {
