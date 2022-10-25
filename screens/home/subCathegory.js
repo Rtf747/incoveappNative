@@ -1,11 +1,9 @@
 import { StyleSheet, Text, View, TouchableWithoutFeedback } from 'react-native';
 import { globalStyles } from '../../styles/global';
-import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { Skeleton } from 'moti/skeleton';
 import useSubCathegory from '../../hooks/useSubCathegory.js/useSubCathegory';
-
-const skeletonElements = [...Array(8).keys()];
+import CardComponent from '../../components/subCategory/cardComponent';
+import TitleComponent from '../../components/subCategory/titleComponent';
 
 export default function NewSaleScreen({ route, navigation }) {
  const [cathegories, setCathegories] = useState(null);
@@ -25,54 +23,8 @@ export default function NewSaleScreen({ route, navigation }) {
 
  return (
   <View style={styles.container}>
-   <View style={styles.title}>
-    <Text style={globalStyles.typography.regular[4]}>{cathegoryName}</Text>
-   </View>
-   <View style={styles.cardContainer}>
-    {/* si queremos agregar mas categorias y hacer scroll debemos cambiar el .map por un flatList */}
-    {cathegories
-     ? cathegories.map((cathegory) => (
-        <TouchableWithoutFeedback
-         onPress={() => navigation.navigate('SelectProduct', cathegory)}
-         key={cathegory.id}>
-         <View
-          style={[
-           {
-            backgroundColor:
-             cathegory.descripcion === 'Ofertas'
-              ? globalStyles.palette.accent.red[10]
-              : cathegory.descripcion === 'Nuevos'
-              ? globalStyles.palette.primary[10]
-              : cathegory.descripcion === 'Ver todo'
-              ? globalStyles.palette.accent.yellow[10]
-              : globalStyles.palette.neutral[5],
-           },
-           styles.cathegories,
-          ]}>
-          <Text
-           style={{
-            marginBottom: 10,
-            color:
-             cathegory.descripcion === 'Ofertas'
-              ? globalStyles.palette.accent.red[100]
-              : cathegory.descripcion === 'Nuevos'
-              ? '#0381FF'
-              : cathegory.descripcion === 'Ver todo'
-              ? globalStyles.palette.accent.yellow[180]
-              : globalStyles.palette.neutral[90],
-           }}>
-           {cathegory.descripcion.charAt(0).toUpperCase() +
-            cathegory.descripcion.slice(1)}
-          </Text>
-         </View>
-        </TouchableWithoutFeedback>
-       ))
-     : skeletonElements.map((el) => (
-        <View key={el} style={styles.skeletonElements}>
-         <Skeleton colorMode={'light'} width={'100%'} height={'43%'} />
-        </View>
-       ))}
-   </View>
+   <TitleComponent cathegoryName={cathegoryName} />
+   <CardComponent cathegories={cathegories} />
   </View>
  );
 }
@@ -80,41 +32,5 @@ const styles = StyleSheet.create({
  container: {
   flex: 1,
   backgroundColor: 'white',
- },
- title: {
-  alignItems: 'flex-start',
-  justifyContent: 'center',
-  width: '100%',
-  backgroundColor: globalStyles.palette.neutral[0],
-  paddingLeft: 24,
- },
- cardContainer: {
-  marginTop: 18,
-  marginHorizontal: 24,
-  flex: 1,
-  flexDirection: 'row',
-  flexWrap: 'wrap',
-  justifyContent: 'space-between',
-  backgroundColor: 'white',
- },
- card: {
-  backgroundColor: 'pink',
-  width: 132.5,
-  height: 80,
-  borderRadius: 12,
- },
- skeletonElements: {
-  marginTop: 10,
-  width: '48%',
-  height: '18%',
-  borderRadius: 12,
- },
- cathegories: {
-  marginTop: 10,
-  width: '48%',
-  height: '18%',
-  borderRadius: 12,
-  alignItems: 'center',
-  justifyContent: 'flex-end',
  },
 });
