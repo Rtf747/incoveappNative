@@ -10,8 +10,9 @@ import { globalStyles } from '../../styles/global';
 import NumberFormat from 'react-number-format';
 import { Snackbar } from 'react-native-paper';
 import { useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { removeFromCart } from '../../features/inventory/inventorySlice';
+import ImageComponent from '../../components/detailProduct/imageComponent';
 
 export default function DetailProductScreen({ route, navigation }) {
  const [visible, setVisible] = useState(false);
@@ -40,9 +41,7 @@ export default function DetailProductScreen({ route, navigation }) {
 
  return (
   <View style={styles.container}>
-   <View style={styles.imageContainer}>
-    <Image source={productImage} style={styles.image} />
-   </View>
+   <ImageComponent productImage={productImage} />
    <View style={styles.detailsContainer}>
     <View style={styles.orderInfoTitle}>
      <Text style={globalStyles.typography.regular[3]}>Datos del producto</Text>
@@ -83,7 +82,6 @@ export default function DetailProductScreen({ route, navigation }) {
     <Pressable
      style={styles.button}
      android_ripple={{ color: '#fff' }}
-     //onPress={() => navigation.navigate('Home')}
      onPress={onSubmit}>
      <Text style={styles.textButton}>Eliminar producto</Text>
     </Pressable>
@@ -113,16 +111,7 @@ const styles = StyleSheet.create({
   paddingHorizontal: 24,
   backgroundColor: '#fff',
  },
- imageContainer: {
-  flex: 2,
-  justifyContent: 'center',
-  alignItems: 'center',
- },
- image: {
-  flex: 1,
-  width: 300,
-  height: 300,
- },
+
  productPriceContainer: {
   flex: 1,
   alignItems: 'center',
