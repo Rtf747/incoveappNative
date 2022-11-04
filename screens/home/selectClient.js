@@ -25,6 +25,7 @@ export default function SelectClient({ navigation }) {
      style={styles.list}
      renderItem={({ item }) => (
       <ClientComponent
+       key={item}
        item={item}
        name={item.name}
        lastName={item.lastName}

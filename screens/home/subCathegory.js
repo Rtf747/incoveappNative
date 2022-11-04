@@ -24,7 +24,7 @@ export default function NewSaleScreen({ route, navigation }) {
  return (
   <View style={styles.container}>
    <TitleComponent cathegoryName={cathegoryName} />
-   <CardComponent cathegories={cathegories} />
+   <CardComponent cathegories={cathegories} navigation={navigation} />
   </View>
  );
 }

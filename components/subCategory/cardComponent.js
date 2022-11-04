@@ -2,7 +2,7 @@ import { Skeleton } from 'moti/skeleton';
 import { StyleSheet, Text, TouchableWithoutFeedback, View } from 'react-native';
 import { globalStyles } from '../../styles/global';
 
-export default function CardComponent({ cathegories }) {
+export default function CardComponent({ cathegories, navigation }) {
  const skeletonElements = [...Array(8).keys()];
 
  return (

@@ -1,3 +1,4 @@
+import { StyleSheet, View } from 'react-native';
 import StepIndicator from 'react-native-step-indicator';
 import { globalStyles } from '../../../styles/global';
 
@@ -27,10 +28,18 @@ const customStyles = {
 
 export default function StepIndicatorComponent({ step }) {
  return (
-  <StepIndicator
-   stepCount={3}
-   customStyles={customStyles}
-   currentPosition={step}
-  />
+  <View style={styles.stepContainer}>
+   <StepIndicator
+    stepCount={3}
+    customStyles={customStyles}
+    currentPosition={step}
+   />
+  </View>
  );
 }
+
+const styles = StyleSheet.create({
+ stepContainer: {
+  paddingVertical: 16,
+ },
+});
